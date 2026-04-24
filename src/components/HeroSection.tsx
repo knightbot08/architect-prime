@@ -17,25 +17,28 @@ const HeroSection = () => {
         >
           <div className="flex items-center gap-2 mb-6 font-mono text-sm text-muted-foreground">
             <Terminal className="w-4 h-4 text-glow-green" />
-            <span className="text-glow-green">system</span>
-            <span className="text-slate-dim">::</span>
-            <span>portfolio_v1.0</span>
+            <span className="text-glow-green">karl@alamida</span>
+            <span className="text-slate-dim">:~$</span>
+            <span>whoami</span>
             <span className="animate-pulse-glow text-primary">█</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-4">
-            <span className="text-foreground">Web3 Researcher</span>
+            <span className="text-foreground">Karl Angelo</span>
             <br />
-            <span className="text-primary text-glow-blue">&amp; IT Specialist</span>
+            <span className="text-primary text-glow-blue">Alamida</span>
           </h1>
 
+          <p className="font-mono text-sm md:text-base text-glow-green mt-4">
+            Crypto Enthusiast · IT Support Technician · Social Media Manager · AI Automation Learner
+          </p>
+
           <p className="text-lg md:text-xl text-secondary-foreground max-w-2xl mt-6 leading-relaxed font-light">
-            Airdrop qualification strategist, DeFi ecosystem navigator, and IT infrastructure specialist.
-            Building at the intersection of blockchain research and automation.
+            Crypto enthusiast with an IT background — researching and qualifying for high-value airdrops across DeFi, NFTs, and Layer 2 ecosystems. Currently upskilling as an AI Automation Specialist.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-8">
-            {["Airdrop Research", "DeFi", "AI Automation", "IT Support"].map((tag) => (
+            {["Airdrop Research", "DeFi & L2", "AI Automation", "IT Support", "Social Media Mgmt"].map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 text-xs font-mono border border-border rounded-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors"

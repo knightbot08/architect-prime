@@ -1,31 +1,31 @@
 import { motion } from "framer-motion";
-import { Database, FileSpreadsheet, BookOpen, CalendarCheck } from "lucide-react";
+import { Database, FileSpreadsheet, BookOpen, UserCog } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 
 const projects = [
   {
     icon: Database,
     title: "Airdrop Research Database",
-    desc: "Personal database tracking airdrop opportunities, eligibility criteria, and qualification progress across multiple chains.",
+    desc: "Personal database to track airdrop opportunities, eligibility criteria, and qualification progress across multiple chains.",
     tags: ["Research", "Data"],
   },
   {
     icon: FileSpreadsheet,
-    title: "DeFi Transaction Tracker",
-    desc: "Tracking sheet of wallet transactions and activities for auditing and eligibility verification purposes.",
+    title: "Data Tracking & Record Safekeeping",
+    desc: "Wallet transaction tracking sheet for auditing and record-keeping of on-chain activities and airdrop eligibility.",
     tags: ["Tracking", "Audit"],
   },
   {
     icon: BookOpen,
     title: "DeFi Interaction Tutorials",
-    desc: "Step-by-step guides for interacting with DeFi protocols to qualify for airdrops across L2 ecosystems.",
+    desc: "Published step-by-step guides for interacting with DeFi protocols to qualify for airdrops across L2 ecosystems.",
     tags: ["Education", "DeFi"],
   },
   {
-    icon: CalendarCheck,
-    title: "Automated Appointment Setter",
-    desc: "Google Sheets-based automated booking system via vibe coding. Increased efficiency by 100% for inspector scheduling.",
-    tags: ["Automation", "Productivity"],
+    icon: UserCog,
+    title: "Multi-Account Social Media Management",
+    desc: "Created and warmed up multiple social accounts (email, Discord, X) to complete social tasks. Customized profiles to simulate real-user behavior for airdrop point farming.",
+    tags: ["Operations", "Web3"],
   },
 ];
 
