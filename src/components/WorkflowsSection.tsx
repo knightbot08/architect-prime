@@ -58,12 +58,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-02",
-    title: "AI Appointment Setter",
+    title: "Simple AI Agent for Room Rentals page on FB",
     platform: "n8n",
-    description: "Facebook Messenger → AI Agent → GHL calendar booking.",
+    description: "Facebook Messenger → AI Agent",
     icon: Calendar,
-    thumbnail: null,
-    gif: null,
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-with-play.gif#t=0.1",
+    gif: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-with-play.gif",
+    loomUrl: "https://www.loom.com/share/48722d4c07d74a1083268344aafe2e67",
   },
   {
     id: "wf-03",
