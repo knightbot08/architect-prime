@@ -1,0 +1,222 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch } from "lucide-react";
+import { SectionHeader } from "./SkillsSection";
+
+/**
+ * ============================================================
+ * WORKFLOW GIF SWAP GUIDE
+ * ============================================================
+ * To replace a dummy thumbnail with a real workflow GIF:
+ *
+ * 1. Place your files in: `public/workflows/`
+ *    - Static thumbnail: `workflow-01.png` (shown by default)
+ *    - Animated GIF:     `workflow-01.gif` (plays on hover)
+ *
+ * 2. In the `workflows` array below, update the entry:
+ *      thumbnail: "/workflows/workflow-01.png",
+ *      gif:       "/workflows/workflow-01.gif",
+ *
+ * 3. Leave `thumbnail` and `gif` as `null` to keep the dummy
+ *    placeholder (icon + gradient) for that slot.
+ * ============================================================
+ */
+
+type Platform = "Zapier" | "Make" | "n8n";
+
+interface WorkflowItem {
+  id: string;
+  title: string;
+  platform: Platform;
+  description: string;
+  icon: typeof Workflow;
+  thumbnail: string | null; // e.g. "/workflows/workflow-01.png"
+  gif: string | null;       // e.g. "/workflows/workflow-01.gif"
+}
+
+const workflows: WorkflowItem[] = [
+  {
+    id: "wf-01",
+    title: "AI Appointment Setter",
+    platform: "n8n",
+    description: "Facebook Messenger → AI Agent → GHL calendar booking.",
+    icon: Calendar,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-02",
+    title: "Salary Invoice Generator",
+    platform: "Make",
+    description: "Auto-generate monthly salary invoices from Sheets.",
+    icon: FileSpreadsheet,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-03",
+    title: "AI Job Scraper",
+    platform: "n8n",
+    description: "Scrape job boards, filter via LLM, push to Notion.",
+    icon: Bot,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-04",
+    title: "GHL ↔ Google Sheets Sync",
+    platform: "n8n",
+    description: "Two-way contact sync between GoHighLevel and Sheets.",
+    icon: Database,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-05",
+    title: "Lead Qualification Bot",
+    platform: "Zapier",
+    description: "Inbound leads scored by AI, routed to right pipeline.",
+    icon: Zap,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-06",
+    title: "Email Auto-Responder",
+    platform: "Make",
+    description: "Gmail trigger → GPT classifier → templated reply.",
+    icon: Mail,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-07",
+    title: "Discord Community Digest",
+    platform: "n8n",
+    description: "Daily AI summary of Discord channels to Telegram.",
+    icon: MessageSquare,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-08",
+    title: "Webhook → CRM Pipeline",
+    platform: "Zapier",
+    description: "Form webhook enriched and pushed into HighLevel.",
+    icon: Webhook,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-09",
+    title: "Multi-Step Data Routing",
+    platform: "Make",
+    description: "Branching scenario with routers and aggregators.",
+    icon: GitBranch,
+    thumbnail: null,
+    gif: null,
+  },
+  {
+    id: "wf-10",
+    title: "Airdrop Tracker Automation",
+    platform: "n8n",
+    description: "Monitor wallet activity, alert on eligibility events.",
+    icon: Workflow,
+    thumbnail: null,
+    gif: null,
+  },
+];
+
+const platformStyles: Record<Platform, string> = {
+  Zapier: "text-primary border-primary/40",
+  Make:   "text-glow-blue border-glow-blue/40",
+  n8n:    "text-glow-green border-glow-green/40",
+};
+
+const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: number }) => {
+  const [hovered, setHovered] = useState(false);
+  const Icon = workflow.icon;
+  const hasMedia = workflow.thumbnail && workflow.gif;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="group border border-border rounded-md bg-card overflow-hidden hover:border-glow-blue transition-all"
+    >
+      {/* Thumbnail / GIF area */}
+      <div className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border">
+        {hasMedia ? (
+          <img
+            src={hovered ? (workflow.gif as string) : (workflow.thumbnail as string)}
+            alt={`${workflow.title} workflow preview`}
+            loading="lazy"
+            className="w-full h-full object-cover transition-opacity duration-300"
+          />
+        ) : (
+          // Dummy placeholder — swap by setting `thumbnail` + `gif` above
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
+            <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
+            <Icon
+              className={`w-12 h-12 text-primary/70 transition-transform duration-500 ${
+                hovered ? "scale-110 animate-pulse" : "scale-100"
+              }`}
+            />
+            <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
+              {workflow.id}.gif
+            </span>
+          </div>
+        )}
+
+        {/* Hover overlay tag */}
+        <div
+          className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
+        >
+          {workflow.platform}
+        </div>
+
+        <div
+          className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
+            hovered ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          ▶ playing
+        </div>
+      </div>
+
+      {/* Meta */}
+      <div className="p-4">
+        <h3 className="font-heading font-semibold text-base text-foreground mb-1">
+          {workflow.title}
+        </h3>
+        <p className="text-xs text-muted-foreground leading-relaxed font-mono">
+          {workflow.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
+const WorkflowsSection = () => {
+  return (
+    <section id="workflows" className="py-24 relative">
+      <div className="container px-6">
+        <SectionHeader index="04" title="Project Workflows" />
+        <p className="text-sm font-mono text-muted-foreground mt-4 max-w-2xl">
+          {"// hover any thumbnail to play the workflow recording"}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10">
+          {workflows.map((wf, i) => (
+            <WorkflowCard key={wf.id} workflow={wf} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default WorkflowsSection;
