@@ -72,8 +72,8 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Scrape job boards, filter via LLM and optimize resume, push to Slack.",
     icon: Bot,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-with-play.gif",
-    gif: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-with-play.gif",
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-d5275cd35e94d36f-full-play.gif#t=0.1",
+    gif: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-d5275cd35e94d36f-full-play.gif",
     loomUrl: "https://www.loom.com/share/479116cd8227426ea6679572171641f9",
   },
   {
