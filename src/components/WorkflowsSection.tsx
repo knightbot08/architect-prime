@@ -160,45 +160,62 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
       onMouseLeave={() => setHovered(false)}
       className="group border border-border rounded-md bg-card overflow-hidden hover:border-glow-blue transition-all"
     >
-      {/* Thumbnail / GIF area */}
-      <div className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border">
-        {hasMedia ? (
-          <img
-            src={hovered ? (workflow.gif as string) : (workflow.thumbnail as string)}
-            alt={`${workflow.title} workflow preview`}
-            loading="lazy"
-            className="w-full h-full object-cover transition-opacity duration-300"
-          />
-        ) : (
-          // Dummy placeholder — swap by setting `thumbnail` + `gif` above
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
-            <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
-            <Icon
-              className={`w-12 h-12 text-primary/70 transition-transform duration-500 ${
-                hovered ? "scale-110 animate-pulse" : "scale-100"
+      {(() => {
+        const MediaWrapper: any = workflow.loomUrl ? "a" : "div";
+        const wrapperProps = workflow.loomUrl
+          ? { href: workflow.loomUrl, target: "_blank", rel: "noopener noreferrer" }
+          : {};
+        return (
+          <MediaWrapper
+            {...wrapperProps}
+            className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block"
+          >
+            {hasMedia ? (
+              <img
+                src={hovered ? (workflow.gif as string) : (workflow.thumbnail as string)}
+                alt={`${workflow.title} workflow preview`}
+                loading="lazy"
+                className="w-full h-full object-cover transition-opacity duration-300"
+              />
+            ) : (
+              // Dummy placeholder — swap by setting `thumbnail` + `gif` above
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
+                <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
+                <Icon
+                  className={`w-12 h-12 text-primary/70 transition-transform duration-500 ${
+                    hovered ? "scale-110 animate-pulse" : "scale-100"
+                  }`}
+                />
+                <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
+                  {workflow.id}.gif
+                </span>
+              </div>
+            )}
+
+            {/* Platform tag */}
+            <div
+              className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
+            >
+              {workflow.platform}
+            </div>
+
+            {/* Loom badge */}
+            {workflow.loomUrl && (
+              <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
+                ↗ loom
+              </div>
+            )}
+
+            <div
+              className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
+                hovered ? "opacity-100" : "opacity-0"
               }`}
-            />
-            <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
-              {workflow.id}.gif
-            </span>
-          </div>
-        )}
-
-        {/* Hover overlay tag */}
-        <div
-          className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
-        >
-          {workflow.platform}
-        </div>
-
-        <div
-          className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
-            hovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          ▶ playing
-        </div>
-      </div>
+            >
+              ▶ playing
+            </div>
+          </MediaWrapper>
+        );
+      })()}
 
       {/* Meta */}
       <div className="p-4">
