@@ -3,53 +3,57 @@ import { CheckCircle2, Briefcase } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 
 const airdrops = [
-  { name: "LayerZero", metric: "Qualified", detail: "Active cross-chain transactions and ecosystem engagement using LayerZero dApps." },
+  { name: "LayerZero", metric: "Qualified", detail: "Active cross-chain transactions and ecosystem engagement via LayerZero dApps." },
   { name: "zkSync", metric: "Eligible", detail: "Interacted with zkSync Era & Lite — bridging, swapping, providing liquidity, utilizing Paymaster." },
   { name: "Starknet", metric: "Qualified", detail: "Maintained $100+ balance, $100+ transaction volume over 3+ months. Participated in testnet activities." },
-  { name: "Scroll", metric: "200+ Marks", detail: "Interacted with Scroll zkEVM endorsed dApps, completed transactions, minted badges." },
+  { name: "Scroll", metric: "200+ Marks", detail: "Interacted with officially endorsed zkEVM dApps, completed transactions, contributed to ecosystem growth, minted badges." },
   { name: "Grass", metric: "Qualified", detail: "Leveraged decentralized compute network participation to qualify for rewards." },
-  { name: "Orbiter", metric: "Eligible", detail: "Completed bridging tasks across different L2 chains to earn required eligibility points." },
+  { name: "Orbiter", metric: "Eligible", detail: "Completed cross-chain bridging tasks across multiple L2 chains to earn eligibility points." },
 ];
 
 const roles = [
   {
-    title: "AI Automation Trainee",
-    period: "2024–Present",
+    title: "Appointment Setter / Facebook Account Manager",
+    period: "2025–Present",
     items: [
-      "Built AI Agent for Facebook (AI appointment setter)",
-      "Automated salary invoice generation workflow",
-      "Developed AI Job Scraper using N8N",
-      "Connected GHL and Google Sheets via N8N integrations",
+      "Managed high-volume Facebook Marketplace inboxes, converting leads into appointments",
+      "Diagnosed and resolved Facebook account issues — restrictions, disabled accounts, verification challenges",
+      "Administered IT infrastructure: virtual machines, WireGuard VPN, Multilogin browser environments for multi-account ops",
+      "Coordinated and optimized workflows to maintain consistent account health and messaging performance",
     ],
   },
   {
-    title: "Appointment Setter",
-    period: "2024–Present",
-    items: [
-      "Managed high-volume inquiries across Marketplace and Flatmates channels",
-      "Increased booking efficiency by 100% through automated workflows",
-    ],
-  },
-  {
-    title: "Crypto Community Member & Airdrop Farmer",
+    title: "Crypto Community Member, Researcher & Airdrop Farmer",
     period: "2023–2025",
     items: [
-      "Researched airdrop opportunities by analyzing whitepapers, tokenomics, and roadmaps",
-      "Developed wallet setup and transaction optimization strategies on limited budget",
-      "Monitored and reported scam links and suspicious activities",
-      "Collaborated with communities to improve collective success rates",
+      "Active participation in crypto communities on X, Telegram, and Discord — DeFi, NFTs, DePIN, Layer 2",
+      "Researched airdrop opportunities by analyzing whitepapers, tokenomics, and roadmap viability",
+      "Followed KOLs for airdrop strategies, scam prevention, and best practices",
+      "Monitored and reported suspicious activities or scam links to protect community members",
+      "Executed qualification strategies on a limited budget — wallet setup, transaction optimization, ecosystem interaction",
+      "Created and managed multiple social media accounts to support social task completion for airdrops",
     ],
   },
   {
-    title: "IT Support — MLhuillier INC, Philippines",
-    period: "Previous",
+    title: "IT Support Technician — MLhuillier INC, Philippines",
+    period: "2017–2023",
     items: [
-      "Workstation deployment, hardware & software installation and troubleshooting",
-      "Basic network installation, CCTV & alarm system setup and configuration",
-      "IT asset handling and management",
+      "Workstation setup, deployment, hardware & software installation and troubleshooting",
+      "Basic network installation, CCTV and alarm system setup and configuration",
+      "Managed and maintained IT assets across the organization",
     ],
   },
 ];
+
+const learning = {
+  title: "AI Automation Specialist (In Progress)",
+  items: [
+    "Workflow Automation — Zapier, Make.com (Integromat), n8n for automated pipelines and integrations",
+    "AI & Prompt Engineering — Crafting effective prompts for LLMs; exploring Claude Code for AI-assisted development",
+    "CRM & Marketing Automation — HighLevel (GoHighLevel) for client management and automated funnels",
+    "Portfolio Development — Building and deploying with Lovable and v0.app (Vercel)",
+  ],
+};
 
 const ExperienceSection = () => {
   return (
@@ -59,7 +63,7 @@ const ExperienceSection = () => {
 
         {/* Airdrop Results */}
         <div className="mt-12 mb-16">
-          <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Airdrop Qualifications</h3>
+          <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Notable Airdrop Achievements</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {airdrops.map((ad, i) => (
               <motion.div
@@ -84,7 +88,7 @@ const ExperienceSection = () => {
         </div>
 
         {/* Roles */}
-        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Professional Roles</h3>
+        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Work Experience</h3>
         <div className="space-y-6">
           {roles.map((role, i) => (
             <motion.div
@@ -113,6 +117,45 @@ const ExperienceSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Currently Learning */}
+        <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mb-6 mt-12">// Currently Learning</h3>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="p-6 border border-border rounded-md bg-background border-l-2 border-l-glow-green"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-mono text-xs text-glow-green animate-pulse-glow">●</span>
+            <h4 className="font-heading font-semibold text-foreground">{learning.title}</h4>
+          </div>
+          <ul className="space-y-1.5">
+            {learning.items.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm text-secondary-foreground">
+                <span className="text-glow-green mt-1.5 text-[6px]">▸</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Education */}
+        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6 mt-12">// Education</h3>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="p-6 border border-border rounded-md bg-background border-l-2 border-l-primary"
+        >
+          <div className="flex items-start justify-between flex-wrap gap-2">
+            <div>
+              <h4 className="font-heading font-semibold text-foreground">Bachelor of Science in Information Technology</h4>
+              <p className="text-sm text-muted-foreground mt-1">Aldersgate College, Philippines</p>
+            </div>
+            <span className="text-xs font-mono text-muted-foreground">2011–2015</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

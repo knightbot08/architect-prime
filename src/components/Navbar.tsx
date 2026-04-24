@@ -6,6 +6,7 @@ const links = [
   { label: "Stack", href: "#stack" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {

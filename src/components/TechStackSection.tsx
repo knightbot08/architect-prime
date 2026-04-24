@@ -3,23 +3,23 @@ import { SectionHeader } from "./SkillsSection";
 
 const categories = [
   {
-    title: "Blockchain Explorers",
-    items: ["Ethereum", "Binance Smart Chain", "Polygon", "zkSync", "Starknet", "Scroll"],
+    title: "Blockchain & Wallets",
+    items: ["Ethereum", "BSC", "Polygon", "zkSync", "Starknet", "Scroll", "Etherscan", "DeBank", "MetaMask", "Rabby", "Aptos", "Keplr"],
     accent: "border-primary",
   },
   {
-    title: "Tools",
-    items: ["Etherscan", "DeBank", "MetaMask", "Rabby", "Aptos", "Keplr"],
+    title: "AI Automation (In Progress)",
+    items: ["n8n", "Zapier", "Make.com", "HighLevel", "Prompt Engineering", "Claude Code", "Lovable", "v0.app"],
     accent: "border-glow-green",
   },
   {
-    title: "Communication",
-    items: ["Telegram", "Discord", "Twitter (X)"],
+    title: "Social & Communication",
+    items: ["Telegram", "Discord", "Twitter / X", "Facebook", "Multilogin", "Dolphin Anty", "Residential Proxies"],
     accent: "border-primary",
   },
   {
-    title: "Automation & Remote",
-    items: ["N8N", "GHL", "Zapier", "Make", "Google Sheets", "AnyDesk", "TeamViewer"],
+    title: "IT & Remote Tools",
+    items: ["WireGuard VPN", "Virtual Machines", "AnyDesk", "TeamViewer", "Google Sheets", "CCTV Systems"],
     accent: "border-glow-green",
   },
 ];

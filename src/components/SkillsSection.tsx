@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
-import { Shield, Search, Users, Compass, Layers, Wrench, Wifi, Bot, Calendar, Mail } from "lucide-react";
+import { Shield, Search, Users, Layers, Wrench, Wifi, Bot, Calendar, Mail, Server, Lock, UserCog } from "lucide-react";
 
 const skills = [
   { icon: Search, label: "Airdrop Research & Qualification", color: "text-primary" },
   { icon: Shield, label: "Scam Detection & Risk Mitigation", color: "text-destructive" },
-  { icon: Users, label: "Telegram & Discord Community Mgmt", color: "text-glow-blue" },
-  { icon: Compass, label: "Blockchain Explorer Navigation", color: "text-glow-green" },
   { icon: Layers, label: "DeFi, NFT & Layer 2 Interaction", color: "text-primary" },
-  { icon: Wrench, label: "Hardware & Software Troubleshooting", color: "text-muted-foreground" },
-  { icon: Wifi, label: "Basic Networking", color: "text-glow-blue" },
-  { icon: Bot, label: "AI Automation", color: "text-glow-green" },
+  { icon: Users, label: "Telegram & Discord Community Mgmt", color: "text-glow-blue" },
+  { icon: UserCog, label: "Multi-Account Social Media Management", color: "text-glow-green" },
   { icon: Calendar, label: "Appointment Setting", color: "text-primary" },
   { icon: Mail, label: "High Volume Inbox Manager", color: "text-muted-foreground" },
+  { icon: Server, label: "Virtual Machine Management", color: "text-glow-blue" },
+  { icon: Lock, label: "WireGuard VPN Configuration", color: "text-glow-green" },
+  { icon: Wrench, label: "Hardware & Software Troubleshooting", color: "text-muted-foreground" },
+  { icon: Wifi, label: "Basic Networking & CCTV Setup", color: "text-glow-blue" },
+  { icon: Bot, label: "AI Automation (In Progress)", color: "text-glow-green" },
 ];
 
 const SkillsSection = () => {
