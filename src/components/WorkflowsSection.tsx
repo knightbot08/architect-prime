@@ -62,8 +62,8 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Facebook Messenger → AI Agent",
     icon: Calendar,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-with-play.gif#t=0.1",
-    gif: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-with-play.gif",
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-01b4b162111e2c97-full-play.gif#t=0.1",
+    gif: "https://cdn.loom.com/sessions/thumbnails/48722d4c07d74a1083268344aafe2e67-01b4b162111e2c97-full-play.gif",
     loomUrl: "https://www.loom.com/share/48722d4c07d74a1083268344aafe2e67",
   },
   {
