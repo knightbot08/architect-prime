@@ -30,26 +30,38 @@ interface WorkflowItem {
   platform: Platform;
   description: string;
   icon: typeof Workflow;
-  thumbnail: string | null; // e.g. "/workflows/workflow-01.png"
-  gif: string | null;       // e.g. "/workflows/workflow-01.gif"
+  thumbnail: string | null; // e.g. "/workflows/workflow-01.png" OR a Loom thumbnail .gif URL
+  gif: string | null;       // e.g. "/workflows/workflow-01.gif" OR same Loom thumbnail .gif URL
+  loomUrl?: string;         // Optional: Loom share link — card becomes clickable to open the recording
 }
+
+/**
+ * LOOM EMBED TIP
+ * --------------
+ * When pasting a Loom thumbnail like:
+ *   <img src="https://cdn.loom.com/sessions/thumbnails/<id>-<hash>-full-play.gif#t=0.1">
+ * the same URL acts as both the static-looking thumbnail AND the animated GIF
+ * (Loom serves an animated .gif). So set BOTH `thumbnail` and `gif` to that URL
+ * and add `loomUrl` so clicking the card opens the recording.
+ */
 
 const workflows: WorkflowItem[] = [
   {
     id: "wf-01",
+    title: "Salary Invoice Generator",
+    platform: "n8n",
+    description: "Auto-generate monthly salary invoices from Sheets.",
+    icon: FileSpreadsheet,
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif#t=0.1",
+    gif: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif",
+    loomUrl: "https://www.loom.com/share/02b49aac0f3b413c87b18f1f125cbfc1",
+  },
+  {
+    id: "wf-02",
     title: "AI Appointment Setter",
     platform: "n8n",
     description: "Facebook Messenger → AI Agent → GHL calendar booking.",
     icon: Calendar,
-    thumbnail: null,
-    gif: null,
-  },
-  {
-    id: "wf-02",
-    title: "Salary Invoice Generator",
-    platform: "Make",
-    description: "Auto-generate monthly salary invoices from Sheets.",
-    icon: FileSpreadsheet,
     thumbnail: null,
     gif: null,
   },
