@@ -68,12 +68,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-03",
-    title: "AI Job Scraper",
+    title: "AI Job Scraper with Resume Optimizer",
     platform: "n8n",
-    description: "Scrape job boards, filter via LLM, push to Notion.",
+    description: "Scrape job boards, filter via LLM and optimize resume, push to Slack.",
     icon: Bot,
-    thumbnail: null,
-    gif: null,
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-with-play.gif",
+    gif: "https://cdn.loom.com/sessions/thumbnails/479116cd8227426ea6679572171641f9-with-play.gif",
+    loomUrl: "https://www.loom.com/share/479116cd8227426ea6679572171641f9",
   },
   {
     id: "wf-04",
