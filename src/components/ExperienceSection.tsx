@@ -1,37 +1,26 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Briefcase } from "lucide-react";
+import { Briefcase, Sparkles } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 
-const airdrops = [
-  { name: "LayerZero", metric: "Qualified", detail: "Active cross-chain transactions and ecosystem engagement via LayerZero dApps." },
-  { name: "zkSync", metric: "Eligible", detail: "Interacted with zkSync Era & Lite — bridging, swapping, providing liquidity, utilizing Paymaster." },
-  { name: "Starknet", metric: "Qualified", detail: "Maintained $100+ balance, $100+ transaction volume over 3+ months. Participated in testnet activities." },
-  { name: "Scroll", metric: "200+ Marks", detail: "Interacted with officially endorsed zkEVM dApps, completed transactions, contributed to ecosystem growth, minted badges." },
-  { name: "Grass", metric: "Qualified", detail: "Leveraged decentralized compute network participation to qualify for rewards." },
-  { name: "Orbiter", metric: "Eligible", detail: "Completed cross-chain bridging tasks across multiple L2 chains to earn eligibility points." },
+const automationHighlights = [
+  { name: "n8n", metric: "Building", detail: "Designing multi-step workflows: AI agents, data sync, invoice generation, lead routing." },
+  { name: "Make.com", metric: "Practiced", detail: "Branching scenarios with routers, aggregators and error handlers for resilient automations." },
+  { name: "Zapier", metric: "Practiced", detail: "Lightweight automations connecting CRMs, forms, email and AI classifiers." },
+  { name: "AI Agents", metric: "Shipped", detail: "Conversational AI agent for a Facebook Rentals page that qualifies leads and answers FAQs." },
+  { name: "HighLevel (GHL)", metric: "Learning", detail: "Funnels, pipelines and CRM automations for client management and follow-up." },
+  { name: "APIs & Webhooks", metric: "Comfortable", detail: "Connecting REST APIs, parsing JSON, and wiring webhooks between SaaS tools." },
 ];
 
 const roles = [
   {
-    title: "Appointment Setter / Facebook Account Manager",
+    title: "Appointment Setter / Facebook Accounts Manager",
     period: "2025–Present",
     items: [
-      "Managed high-volume Facebook Marketplace inboxes, converting leads into appointments",
+      "Managed high-volume Facebook Marketplace inboxes, converting leads into booked appointments",
       "Diagnosed and resolved Facebook account issues — restrictions, disabled accounts, verification challenges",
       "Administered IT infrastructure: virtual machines, WireGuard VPN, Multilogin browser environments for multi-account ops",
+      "Built and tested n8n automations to streamline lead qualification and follow-up workflows",
       "Coordinated and optimized workflows to maintain consistent account health and messaging performance",
-    ],
-  },
-  {
-    title: "Crypto Community Member, Researcher & Airdrop Farmer",
-    period: "2023–2025",
-    items: [
-      "Active participation in crypto communities on X, Telegram, and Discord — DeFi, NFTs, DePIN, Layer 2",
-      "Researched airdrop opportunities by analyzing whitepapers, tokenomics, and roadmap viability",
-      "Followed KOLs for airdrop strategies, scam prevention, and best practices",
-      "Monitored and reported suspicious activities or scam links to protect community members",
-      "Executed qualification strategies on a limited budget — wallet setup, transaction optimization, ecosystem interaction",
-      "Created and managed multiple social media accounts to support social task completion for airdrops",
     ],
   },
   {
@@ -41,17 +30,19 @@ const roles = [
       "Workstation setup, deployment, hardware & software installation and troubleshooting",
       "Basic network installation, CCTV and alarm system setup and configuration",
       "Managed and maintained IT assets across the organization",
+      "Provided end-user technical support and resolved escalated issues across multiple branches",
     ],
   },
 ];
 
 const learning = {
-  title: "AI Automation Specialist (In Progress)",
+  title: "AI Automation Specialist — Active Focus",
   items: [
-    "Workflow Automation — Zapier, Make.com (Integromat), n8n for automated pipelines and integrations",
-    "AI & Prompt Engineering — Crafting effective prompts for LLMs; exploring Claude Code for AI-assisted development",
+    "Workflow Automation — Building production-ready pipelines in n8n, Make.com and Zapier",
+    "AI Agents & Prompt Engineering — Designing LLM-powered agents (OpenAI, Claude) for real client use cases",
     "CRM & Marketing Automation — HighLevel (GoHighLevel) for client management and automated funnels",
-    "Portfolio Development — Building and deploying with Lovable and v0.app (Vercel)",
+    "AI-Assisted Development — Claude Code, Lovable and v0.app for rapid full-stack prototyping",
+    "API Integrations — REST, webhooks and JSON wrangling to connect any SaaS to any other SaaS",
   ],
 };
 
@@ -59,13 +50,13 @@ const ExperienceSection = () => {
   return (
     <section id="experience" className="py-24 bg-card/50 relative">
       <div className="container px-6">
-        <SectionHeader index="04" title="Impact & Experience" />
+        <SectionHeader index="05" title="Impact & Experience" />
 
-        {/* Airdrop Results */}
+        {/* Automation Highlights — featured first */}
         <div className="mt-12 mb-16">
-          <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Notable Airdrop Achievements</h3>
+          <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mb-6">// Automation Toolkit & Highlights</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {airdrops.map((ad, i) => (
+            {automationHighlights.map((ad, i) => (
               <motion.div
                 key={ad.name}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -77,7 +68,7 @@ const ExperienceSection = () => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-heading font-semibold text-foreground">{ad.name}</span>
                   <span className="flex items-center gap-1 text-xs font-mono text-glow-green">
-                    <CheckCircle2 className="w-3 h-3" />
+                    <Sparkles className="w-3 h-3" />
                     {ad.metric}
                   </span>
                 </div>
