@@ -3,24 +3,24 @@ import { SectionHeader } from "./SkillsSection";
 
 const categories = [
   {
-    title: "Blockchain & Wallets",
-    items: ["Ethereum", "BSC", "Polygon", "zkSync", "Starknet", "Scroll", "Etherscan", "DeBank", "MetaMask", "Rabby", "Aptos", "Keplr"],
-    accent: "border-primary",
-  },
-  {
-    title: "AI Automation (In Progress)",
-    items: ["n8n", "Zapier", "Make.com", "HighLevel", "Prompt Engineering", "Claude Code", "Lovable", "v0.app"],
+    title: "AI Automation & Workflow Tools",
+    items: ["n8n", "Make.com", "Zapier", "HighLevel (GHL)", "OpenAI / GPT", "Claude", "Lovable AI", "Prompt Engineering", "Webhooks", "REST APIs"],
     accent: "border-glow-green",
   },
   {
-    title: "Social & Communication",
-    items: ["Telegram", "Discord", "Twitter / X", "Facebook", "Multilogin", "Dolphin Anty", "Residential Proxies"],
+    title: "Accounts & Appointment Setting",
+    items: ["Facebook Marketplace", "FB Messenger", "Multilogin", "Dolphin Anty", "Residential Proxies", "Google Calendar", "CRM Pipelines", "Email Outreach"],
     accent: "border-primary",
   },
   {
-    title: "IT & Remote Tools",
-    items: ["WireGuard VPN", "Virtual Machines", "AnyDesk", "TeamViewer", "Google Sheets", "CCTV Systems"],
-    accent: "border-glow-green",
+    title: "IT Support & Infrastructure",
+    items: ["Windows / Linux", "Virtual Machines", "WireGuard VPN", "AnyDesk", "TeamViewer", "Networking", "CCTV / Alarm Systems", "Hardware Troubleshooting"],
+    accent: "border-glow-blue",
+  },
+  {
+    title: "Dev & Productivity",
+    items: ["Lovable", "v0.app", "Vercel", "Google Sheets", "Notion", "GitHub", "Claude Code"],
+    accent: "border-primary",
   },
 ];
 
