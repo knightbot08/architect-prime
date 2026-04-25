@@ -132,9 +132,9 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-10",
-    title: "Airdrop Tracker Automation",
+    title: "Appointment Reminder Bot",
     platform: "n8n",
-    description: "Monitor wallet activity, alert on eligibility events.",
+    description: "Auto-send SMS/email reminders before booked appointments.",
     icon: Workflow,
     thumbnail: null,
     gif: null,
