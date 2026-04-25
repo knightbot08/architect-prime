@@ -1,19 +1,22 @@
 import { motion } from "framer-motion";
-import { Shield, Search, Users, Layers, Wrench, Wifi, Bot, Calendar, Mail, Server, Lock, UserCog } from "lucide-react";
+import { Bot, Workflow, Zap, Webhook, Calendar, Mail, UserCog, Server, Lock, Wrench, Wifi, GitBranch } from "lucide-react";
 
 const skills = [
-  { icon: Search, label: "Airdrop Research & Qualification", color: "text-primary" },
-  { icon: Shield, label: "Scam Detection & Risk Mitigation", color: "text-destructive" },
-  { icon: Layers, label: "DeFi, NFT & Layer 2 Interaction", color: "text-primary" },
-  { icon: Users, label: "Telegram & Discord Community Mgmt", color: "text-glow-blue" },
-  { icon: UserCog, label: "Multi-Account Social Media Management", color: "text-glow-green" },
+  // Automation — highlighted first
+  { icon: Bot, label: "AI Automation & LLM Integration", color: "text-glow-green" },
+  { icon: Workflow, label: "n8n Workflow Engineering", color: "text-glow-green" },
+  { icon: Zap, label: "Zapier & Make.com Automation", color: "text-glow-green" },
+  { icon: Webhook, label: "API & Webhook Integrations", color: "text-glow-green" },
+  { icon: GitBranch, label: "Process Automation & Routing", color: "text-glow-green" },
+  // Appointment / Accounts
   { icon: Calendar, label: "Appointment Setting", color: "text-primary" },
-  { icon: Mail, label: "High Volume Inbox Manager", color: "text-muted-foreground" },
+  { icon: Mail, label: "High-Volume Inbox Management", color: "text-primary" },
+  { icon: UserCog, label: "Multi-Account Operations", color: "text-primary" },
+  // IT Support
   { icon: Server, label: "Virtual Machine Management", color: "text-glow-blue" },
-  { icon: Lock, label: "WireGuard VPN Configuration", color: "text-glow-green" },
-  { icon: Wrench, label: "Hardware & Software Troubleshooting", color: "text-muted-foreground" },
-  { icon: Wifi, label: "Basic Networking & CCTV Setup", color: "text-glow-blue" },
-  { icon: Bot, label: "AI Automation (In Progress)", color: "text-glow-green" },
+  { icon: Lock, label: "WireGuard VPN Configuration", color: "text-glow-blue" },
+  { icon: Wrench, label: "Hardware & Software Troubleshooting", color: "text-glow-blue" },
+  { icon: Wifi, label: "Networking & CCTV Setup", color: "text-glow-blue" },
 ];
 
 const SkillsSection = () => {

@@ -30,15 +30,15 @@ const HeroSection = () => {
           </h1>
 
           <p className="font-mono text-sm md:text-base text-glow-green mt-4">
-            Crypto Enthusiast · IT Support Technician · Social Media Manager · AI Automation Learner
+            AI Automation Specialist · IT Support Technician · Accounts Manager · Appointment Setter
           </p>
 
           <p className="text-lg md:text-xl text-secondary-foreground max-w-2xl mt-6 leading-relaxed font-light">
-            Crypto enthusiast with an IT background — researching and qualifying for high-value airdrops across DeFi, NFTs, and Layer 2 ecosystems. Currently upskilling as an AI Automation Specialist.
+            Building intelligent automation workflows with <span className="text-glow-green">n8n, Make.com, and Zapier</span> — backed by years of hands-on IT support, multi-account operations, and appointment-setting experience. Turning manual processes into self-running systems.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-8">
-            {["Airdrop Research", "DeFi & L2", "AI Automation", "IT Support", "Social Media Mgmt"].map((tag) => (
+            {["AI Automation", "n8n / Make / Zapier", "IT Support", "Appointment Setting", "Accounts Manager"].map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 text-xs font-mono border border-border rounded-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors"

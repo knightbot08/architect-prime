@@ -1,31 +1,31 @@
 import { motion } from "framer-motion";
-import { Database, FileSpreadsheet, BookOpen, UserCog } from "lucide-react";
+import { Bot, Workflow, UserCog, Server } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 
 const projects = [
   {
-    icon: Database,
-    title: "Airdrop Research Database",
-    desc: "Personal database to track airdrop opportunities, eligibility criteria, and qualification progress across multiple chains.",
-    tags: ["Research", "Data"],
+    icon: Bot,
+    title: "AI Agent for Room Rentals (FB Messenger)",
+    desc: "Built an n8n-powered AI agent that handles inquiries on a Facebook Rentals page — qualifying leads, answering FAQs, and routing serious inquiries to a human.",
+    tags: ["n8n", "AI Agent"],
   },
   {
-    icon: FileSpreadsheet,
-    title: "Data Tracking & Record Safekeeping",
-    desc: "Wallet transaction tracking sheet for auditing and record-keeping of on-chain activities and airdrop eligibility.",
-    tags: ["Tracking", "Audit"],
-  },
-  {
-    icon: BookOpen,
-    title: "DeFi Interaction Tutorials",
-    desc: "Published step-by-step guides for interacting with DeFi protocols to qualify for airdrops across L2 ecosystems.",
-    tags: ["Education", "DeFi"],
+    icon: Workflow,
+    title: "Salary Invoice Automation",
+    desc: "n8n workflow that pulls staff data from Google Sheets and auto-generates monthly salary invoices — eliminating manual spreadsheet work.",
+    tags: ["n8n", "Sheets"],
   },
   {
     icon: UserCog,
-    title: "Multi-Account Social Media Management",
-    desc: "Created and warmed up multiple social accounts (email, Discord, X) to complete social tasks. Customized profiles to simulate real-user behavior for airdrop point farming.",
-    tags: ["Operations", "Web3"],
+    title: "Multi-Account Operations Stack",
+    desc: "Designed a secure stack — VMs, WireGuard VPN, Multilogin, residential proxies — to run multiple Facebook accounts safely for high-volume appointment setting.",
+    tags: ["Ops", "Security"],
+  },
+  {
+    icon: Server,
+    title: "IT Support Playbook (MLhuillier)",
+    desc: "6 years of structured workstation deployment, network setup, CCTV/alarm configuration and asset management across a multi-branch organization.",
+    tags: ["IT Support", "Infrastructure"],
   },
 ];
 
