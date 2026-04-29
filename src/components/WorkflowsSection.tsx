@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch, X } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
+import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
 
 /**
  * ============================================================
@@ -99,12 +100,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-06",
-    title: "Email Auto-Responder",
-    platform: "Make",
-    description: "Gmail trigger → GPT classifier → templated reply.",
-    icon: Mail,
-    thumbnail: null,
-    gif: null,
+    title: "AI Content Repurposing",
+    platform: "Zapier",
+    description: "Transforming one piece of content into multiple high-impact formats automatically, saving time and maximizing reach.",
+    icon: Zap,
+    thumbnail: aiContentRepurposingImg,
+    gif: aiContentRepurposingImg,
+    image: aiContentRepurposingImg,
   },
   {
     id: "wf-07",
