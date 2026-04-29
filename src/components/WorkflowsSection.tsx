@@ -89,12 +89,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-05",
-    title: "Lead Qualification Bot",
+    title: "Leads Enrichment Automation",
     platform: "Zapier",
-    description: "Inbound leads scored by AI, routed to right pipeline.",
+    description: "Turning raw leads into organized, high-quality opportunities through smart automation.",
     icon: Zap,
-    thumbnail: null,
-    gif: null,
+    thumbnail: leadsEnrichmentImg,
+    gif: leadsEnrichmentImg,
+    image: leadsEnrichmentImg,
   },
   {
     id: "wf-06",
