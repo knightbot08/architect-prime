@@ -152,8 +152,21 @@ const platformStyles: Record<Platform, string> = {
 
 const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: number }) => {
   const [hovered, setHovered] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const Icon = workflow.icon;
   const hasMedia = workflow.thumbnail && workflow.gif;
+  const isImage = !!workflow.image;
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLightboxOpen(false);
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightboxOpen]);
 
   return (
     <motion.div
@@ -166,21 +179,25 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
       className="group border border-border rounded-md bg-card overflow-hidden hover:border-glow-blue transition-all"
     >
       {(() => {
-        const MediaWrapper: any = workflow.loomUrl ? "a" : "div";
+        const MediaWrapper: any = workflow.loomUrl ? "a" : isImage ? "button" : "div";
         const wrapperProps = workflow.loomUrl
           ? { href: workflow.loomUrl, target: "_blank", rel: "noopener noreferrer" }
+          : isImage
+          ? { type: "button", onClick: () => setLightboxOpen(true), "aria-label": `Enlarge ${workflow.title}` }
           : {};
         return (
           <MediaWrapper
             {...wrapperProps}
-            className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block"
+            className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block cursor-pointer text-left"
           >
             {hasMedia ? (
               <img
                 src={hovered ? (workflow.gif as string) : (workflow.thumbnail as string)}
                 alt={`${workflow.title} workflow preview`}
                 loading="lazy"
-                className="w-full h-full object-cover transition-opacity duration-300"
+                className={`w-full h-full transition-transform duration-500 ${
+                  isImage ? "object-contain bg-background group-hover:scale-105" : "object-cover"
+                }`}
               />
             ) : (
               // Dummy placeholder — swap by setting `thumbnail` + `gif` above
@@ -211,12 +228,19 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
               </div>
             )}
 
+            {/* Image badge */}
+            {isImage && (
+              <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
+                ⤢ enlarge
+              </div>
+            )}
+
             <div
               className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
                 hovered ? "opacity-100" : "opacity-0"
               }`}
             >
-              ▶ playing
+              {isImage ? "⤢ click to enlarge" : "▶ playing"}
             </div>
           </MediaWrapper>
         );
@@ -231,6 +255,42 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
           {workflow.description}
         </p>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && isImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setLightboxOpen(false)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 backdrop-blur-sm p-6 cursor-zoom-out"
+          >
+            <motion.button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute top-4 right-4 p-2 rounded-full border border-border bg-card/80 hover:bg-card text-foreground transition-colors"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
+            <motion.img
+              src={workflow.image as string}
+              alt={`${workflow.title} enlarged`}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 220, damping: 24 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl border border-border cursor-default"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
