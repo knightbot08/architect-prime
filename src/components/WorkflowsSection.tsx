@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch, X } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
+import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 
 /**
  * ============================================================
