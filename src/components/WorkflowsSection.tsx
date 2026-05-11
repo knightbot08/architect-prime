@@ -83,7 +83,7 @@ const workflows: WorkflowItem[] = [
     id: "wf-04",
     title: "GHL ↔ Google Sheets Sync",
     platform: "n8n",
-    description: "Two-way contact sync between GoHighLevel and Sheets.",
+    description: "Two-way sync that keeps GoHighLevel contacts and a Google Sheet in lockstep. Eliminates duplicate data entry and broken handoffs between the CRM and operational spreadsheets used by the team.",
     icon: Database,
     thumbnail: null,
     gif: null,
@@ -112,7 +112,7 @@ const workflows: WorkflowItem[] = [
     id: "wf-07",
     title: "Discord Community Digest",
     platform: "n8n",
-    description: "Daily AI summary of Discord channels to Telegram.",
+    description: "Pulls daily activity from key Discord channels, summarizes it with an LLM, and posts a clean digest to Telegram. Solves information overload for busy community managers without needing to scroll through every channel.",
     icon: MessageSquare,
     thumbnail: null,
     gif: null,
@@ -121,7 +121,7 @@ const workflows: WorkflowItem[] = [
     id: "wf-08",
     title: "Webhook → CRM Pipeline",
     platform: "Zapier",
-    description: "Form webhook enriched and pushed into HighLevel.",
+    description: "Captures form submissions via webhook, enriches the payload with extra context, and pushes the contact into a HighLevel pipeline. Removes copy-paste between forms and CRM, so no lead is lost on the way in.",
     icon: Webhook,
     thumbnail: null,
     gif: null,
@@ -130,7 +130,7 @@ const workflows: WorkflowItem[] = [
     id: "wf-09",
     title: "Multi-Step Data Routing",
     platform: "Make",
-    description: "Branching scenario with routers and aggregators.",
+    description: "A branching Make.com scenario using routers and aggregators to send each record to the right destination based on field values. Replaces a brittle stack of one-off Zaps with a single readable flow.",
     icon: GitBranch,
     thumbnail: null,
     gif: null,
@@ -139,7 +139,7 @@ const workflows: WorkflowItem[] = [
     id: "wf-10",
     title: "Appointment Reminder Bot",
     platform: "n8n",
-    description: "Auto-send SMS/email reminders before booked appointments.",
+    description: "Watches the booking calendar and automatically sends SMS and email reminders before each appointment. Cuts no-shows and removes the daily manual task of chasing confirmations.",
     icon: Workflow,
     thumbnail: null,
     gif: null,
@@ -202,16 +202,17 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
                 }`}
               />
             ) : (
-              // Dummy placeholder — swap by setting `thumbnail` + `gif` above
+              // No recording yet — styled terminal placeholder
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
                 <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
-                <Icon
-                  className={`w-12 h-12 text-primary/70 transition-transform duration-500 ${
-                    hovered ? "scale-110 animate-pulse" : "scale-100"
-                  }`}
-                />
+                <div className="relative z-10 flex flex-col items-center gap-2">
+                  <Icon className={`w-8 h-8 text-primary/60 transition-transform duration-500 ${hovered ? "scale-110" : ""}`} />
+                  <span className="font-mono text-xs text-glow-green/80 px-3 py-1 border border-glow-green/30 rounded-sm bg-background/50">
+                    [ Recording coming soon ]
+                  </span>
+                </div>
                 <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
-                  {workflow.id}.gif
+                  {workflow.id}
                 </span>
               </div>
             )}
