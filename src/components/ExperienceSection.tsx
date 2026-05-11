@@ -13,15 +13,16 @@ const automationHighlights = [
 
 const roles = [
   {
-    title: "Appointment Setter / Facebook Accounts Manager",
+    title: "Automation & Operations Specialist",
     period: "2025–Present",
     items: [
-      "Managed high-volume Facebook Marketplace inboxes, converting leads into booked appointments",
+      "Built and managed a 40+ account Facebook operation, deploying n8n automation workflows to streamline lead qualification and reduce manual follow-up time across a 6-property rental portfolio.",
       "Diagnosed and resolved Facebook account issues — restrictions, disabled accounts, verification challenges",
       "Administered IT infrastructure: virtual machines, WireGuard VPN, Multilogin browser environments for multi-account ops",
       "Built and tested n8n automations to streamline lead qualification and follow-up workflows",
       "Coordinated and optimized workflows to maintain consistent account health and messaging performance",
     ],
+    tools: ["n8n", "Facebook Marketplace", "Multilogin", "WireGuard VPN", "Google Sheets"],
   },
   {
     title: "IT Support Technician — MLhuillier INC, Philippines",
@@ -32,6 +33,7 @@ const roles = [
       "Managed and maintained IT assets across the organization",
       "Provided end-user technical support and resolved escalated issues across multiple branches",
     ],
+    tools: ["Hardware Troubleshooting", "Network Setup", "CCTV", "Asset Management"],
   },
 ];
 
@@ -105,6 +107,16 @@ const ExperienceSection = () => {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 pt-4 border-t border-border/60">
+                <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-2">// Tools Used</div>
+                <div className="flex flex-wrap gap-2">
+                  {role.tools.map((t) => (
+                    <span key={t} className="text-xs font-mono text-glow-green border border-glow-green/30 px-2 py-0.5 rounded-sm">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

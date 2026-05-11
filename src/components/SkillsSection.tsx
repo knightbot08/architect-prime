@@ -19,25 +19,77 @@ const skills = [
   { icon: Wifi, label: "Networking & CCTV Setup", color: "text-glow-blue" },
 ];
 
+const tiers = [
+  {
+    label: "Core Tools",
+    accent: "border-glow-green text-glow-green",
+    items: ["n8n", "Make.com", "Zapier", "Airtable", "Google Sheets", "ManyChat"],
+  },
+  {
+    label: "Working With",
+    accent: "border-primary text-primary",
+    items: ["HighLevel (GHL)", "OpenAI / GPT", "Claude", "Webhooks", "REST APIs"],
+  },
+  {
+    label: "Familiar",
+    accent: "border-glow-blue text-glow-blue",
+    items: [
+      "Windows / Linux", "Virtual Machines", "WireGuard VPN", "AnyDesk", "TeamViewer",
+      "Networking", "CCTV / Alarm", "Hardware Troubleshooting",
+      "Multilogin", "Dolphin Anty", "Residential Proxies", "Google Calendar",
+      "Notion", "GitHub", "Lovable", "v0.app", "Vercel", "Claude Code",
+    ],
+  },
+];
+
 const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 relative">
       <div className="container px-6">
-        <SectionHeader index="01" title="Technical Capabilities" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+        <SectionHeader index="01" title="Skills & Stack" />
+
+        {/* Capabilities */}
+        <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mt-12 mb-6">// Capabilities</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((skill, i) => (
             <motion.div
               key={skill.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: i * 0.04, duration: 0.3, ease: "easeOut" }}
               className="group flex items-center gap-4 p-4 border border-border rounded-md bg-card hover:border-primary/50 hover:border-glow-blue transition-all"
             >
               <skill.icon className={`w-5 h-5 ${skill.color} shrink-0`} />
               <span className="text-sm font-mono text-secondary-foreground group-hover:text-foreground transition-colors">
                 {skill.label}
               </span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Stack tiers */}
+        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mt-12 mb-6">// Stack</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tiers.map((tier, i) => (
+            <motion.div
+              key={tier.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.3, ease: "easeOut" }}
+              className={`p-6 border border-border rounded-md bg-card border-l-2 ${tier.accent}`}
+            >
+              <h4 className={`font-mono text-xs uppercase tracking-wider mb-4 ${tier.accent.split(" ")[1]}`}>
+                {tier.label}
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {tier.items.map((item) => (
+                  <span key={item} className="px-3 py-1.5 text-xs font-mono bg-secondary text-secondary-foreground rounded-sm">
+                    {item}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
