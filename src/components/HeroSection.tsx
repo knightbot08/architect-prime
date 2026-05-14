@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Terminal, ChevronDown, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import HeroAvatar from "./HeroAvatar";
+import karlAvatar from "@/assets/karl-avatar.png";
 
 const terminalLines = [
   "> Connecting to Google Sheets...  ✓",
@@ -65,7 +65,20 @@ const HeroSection = () => {
           className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[auto,1fr,auto] gap-8 items-center"
         >
           {/* Avatar */}
-          <HeroAvatar />
+          <div className="flex flex-col items-center lg:items-start">
+            <div
+              className="relative rounded-2xl overflow-hidden border-[1.5px] border-glow-green"
+              style={{
+                width: "clamp(120px, 18vw, 180px)",
+                height: "clamp(120px, 18vw, 180px)",
+                boxShadow: "0 0 30px hsl(var(--glow-green) / 0.25), 0 0 60px hsl(var(--glow-green) / 0.1)",
+              }}
+            >
+              {/* Swap this src to replace placeholder with a real photo */}
+              <img src={karlAvatar} alt="Karl Angelo Alamida" className="w-full h-full object-cover" />
+            </div>
+            <span className="mt-2 font-mono text-[11px] text-glow-green/80">{">_"} karl.jpg</span>
+          </div>
 
           {/* Content */}
           <div>
