@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import karlAvatar from "@/assets/karl-avatar.png";
 
 const SIZE = 220;
 const PARTICLE_COUNT = 60;
 const LINK_DIST = 45;
+const DOT_SPACING = 22;
 
 type Particle = { x: number; y: number; vx: number; vy: number; r: number };
 type Bolt = { d: string; id: number };
@@ -44,6 +45,26 @@ const HeroAvatar = () => {
   const [bolts, setBolts] = useState<Bolt[]>([]);
   const boltIdRef = useRef(0);
 
+  // Pre-compute LED grid positions
+  const ledDots = useMemo(() => {
+    const dots: { x: number; y: number; delay: number; dur: number; color: string; size: number }[] = [];
+    const offset = DOT_SPACING / 2;
+    for (let y = offset; y < SIZE; y += DOT_SPACING) {
+      for (let x = offset; x < SIZE; x += DOT_SPACING) {
+        dots.push({
+          x,
+          y,
+          // staggered: earliest dots at ~0s, fully populated by ~0.5s, then loop
+          delay: Math.random() * 0.5,
+          dur: 0.8 + Math.random() * 1.6,
+          color: Math.random() > 0.5 ? "#00d4ff" : "#0077cc",
+          size: 3 + Math.random() * 1.2,
+        });
+      }
+    }
+    return dots;
+  }, []);
+
   // Particle animation
   useEffect(() => {
     if (!active) return;
@@ -63,7 +84,6 @@ const HeroAvatar = () => {
         if (p.x < 0 || p.x > SIZE) p.vx *= -1;
         if (p.y < 0 || p.y > SIZE) p.vy *= -1;
       }
-      // links
       ctx.lineWidth = 0.6;
       for (let i = 0; i < ps.length; i++) {
         for (let j = i + 1; j < ps.length; j++) {
@@ -79,7 +99,6 @@ const HeroAvatar = () => {
           }
         }
       }
-      // dots
       for (const p of ps) {
         ctx.fillStyle = Math.random() > 0.5 ? "#00d4ff" : "#0099ee";
         ctx.beginPath();
@@ -138,21 +157,62 @@ const HeroAvatar = () => {
           <img
             src={karlAvatar}
             alt="Karl Angelo Alamida"
-            className="w-full h-full object-cover transition-[filter] duration-[400ms] ease-out"
-            style={{ filter: active ? "brightness(0.7) saturate(1.3)" : "none" }}
+            className="w-full h-full object-cover transition-[filter] duration-500 ease-out"
+            style={{
+              filter: active
+                ? "brightness(0.72) saturate(1.4) hue-rotate(10deg)"
+                : "none",
+            }}
             draggable={false}
           />
 
-          {/* Grid overlay */}
+          {/* Dual-side rim lighting */}
           <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-[400ms] ease-out"
+            className="absolute inset-y-0 left-0 pointer-events-none transition-opacity duration-500 ease-out"
             style={{
-              opacity: active ? 1 : 0,
-              backgroundImage:
-                "linear-gradient(rgba(0,180,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,255,0.07) 1px, transparent 1px)",
-              backgroundSize: "22px 22px",
+              width: "38%",
+              opacity: active ? 0.55 : 0.35,
+              background:
+                "linear-gradient(to right, rgba(0,150,255,1) 0%, rgba(0,150,255,0.5) 35%, rgba(0,150,255,0) 100%)",
+              mixBlendMode: "screen",
             }}
           />
+          <div
+            className="absolute inset-y-0 right-0 pointer-events-none transition-opacity duration-500 ease-out"
+            style={{
+              width: "38%",
+              opacity: active ? 0.55 : 0.35,
+              background:
+                "linear-gradient(to left, rgba(0,150,255,1) 0%, rgba(0,150,255,0.5) 35%, rgba(0,150,255,0) 100%)",
+              mixBlendMode: "screen",
+            }}
+          />
+
+          {/* LED grid - powering up dots */}
+          <svg
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500 ease-out"
+            width={SIZE}
+            height={SIZE}
+            viewBox={`0 0 ${SIZE} ${SIZE}`}
+            style={{ opacity: active ? 1 : 0 }}
+          >
+            {ledDots.map((d, i) => (
+              <circle
+                key={i}
+                cx={d.x}
+                cy={d.y}
+                r={d.size / 2}
+                fill={d.color}
+                style={{
+                  filter: `drop-shadow(0 0 2px ${d.color})`,
+                  animation: active
+                    ? `led-blink ${d.dur}s ease-in-out ${d.delay}s infinite`
+                    : "none",
+                  opacity: 0,
+                }}
+              />
+            ))}
+          </svg>
 
           {/* Particle canvas */}
           <canvas
@@ -212,6 +272,11 @@ const HeroAvatar = () => {
         @keyframes avatar-scan {
           0% { transform: translateY(0); }
           100% { transform: translateY(${SIZE - 2}px); }
+        }
+        @keyframes led-blink {
+          0%, 100% { opacity: 0; }
+          40% { opacity: 0.8; }
+          60% { opacity: 0.3; }
         }
       `}</style>
     </div>
