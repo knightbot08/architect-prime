@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Terminal, ChevronDown, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import karlAvatar from "@/assets/karl-avatar.png";
+import HeroAvatar from "./HeroAvatar";
 
 const terminalLines = [
   "> Connecting to Google Sheets...  ✓",
