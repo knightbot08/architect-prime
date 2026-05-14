@@ -53,22 +53,33 @@ const TerminalMock = () => {
 const AvatarCard = () => {
   const [hover, setHover] = useState(false);
   const SIZE = 220;
-  const SPACING = 22;
+  const SPACING = 20;
   const cols = Math.floor(SIZE / SPACING);
   const rows = Math.floor(SIZE / SPACING);
-  const dots = [] as { x: number; y: number; delay: number; dur: number }[];
+  const cx0 = SIZE / 2;
+  const cy0 = SIZE * 0.4;
+  const maxDist = Math.hypot(SIZE / 2, SIZE / 2);
+  const dots = [] as { x: number; y: number; delay: number; dur: number; powerDelay: number }[];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      // deterministic pseudo-random per dot
+      const x = c * SPACING + SPACING / 2;
+      const y = r * SPACING + SPACING / 2;
       const seed = (r * 31 + c * 17) % 100;
+      // distance from center of image — edges first means smaller powerDelay for far-from-center dots
+      const dist = Math.hypot(x - SIZE / 2, y - SIZE / 2);
+      const powerDelay = (1 - dist / maxDist) * 0.6; // 0 at edges → 0.6s near center
       dots.push({
-        x: c * SPACING + SPACING / 2,
-        y: r * SPACING + SPACING / 2,
-        delay: (seed / 100) * 0.5,
+        x,
+        y,
+        delay: powerDelay + (seed / 100) * 0.4,
         dur: 1.2 + (seed % 13) / 10,
+        powerDelay,
       });
     }
   }
+
+  // Mask: hide center ellipse (subject area), show edges only
+  const maskId = "avatar-dot-mask";
 
   return (
     <div className="flex flex-col items-center lg:items-start">
@@ -78,8 +89,8 @@ const AvatarCard = () => {
         onClick={() => setHover((h) => !h)}
         className="relative overflow-hidden border-[1.5px] border-glow-green cursor-pointer group"
         style={{
-          width: 220,
-          height: 220,
+          width: SIZE,
+          height: SIZE,
           borderRadius: 16,
           boxShadow: "0 0 30px hsl(var(--glow-green) / 0.25), 0 0 60px hsl(var(--glow-green) / 0.1)",
         }}
@@ -87,59 +98,68 @@ const AvatarCard = () => {
         <img
           src={karlAvatar}
           alt="Karl Angelo Alamida"
-          className="w-full h-full object-cover transition-all duration-500"
-          style={{
-            filter: hover ? "hue-rotate(10deg) saturate(1.4)" : "none",
-          }}
+          className="w-full h-full object-cover"
         />
 
         {/* Left rim light */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 transition-opacity duration-500"
+          className="pointer-events-none absolute inset-y-0 left-0 transition-opacity duration-500 ease-out"
           style={{
-            width: "38%",
-            background: "linear-gradient(to right, rgba(0,150,255,0.35), transparent)",
-            opacity: hover ? 0.55 / 0.35 : 1,
+            width: "40%",
+            background: "linear-gradient(to right, rgba(0,140,255,0.45), transparent)",
+            opacity: hover ? 1 : 0,
             mixBlendMode: "screen",
           }}
         />
         {/* Right rim light */}
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 transition-opacity duration-500"
+          className="pointer-events-none absolute inset-y-0 right-0 transition-opacity duration-500 ease-out"
           style={{
-            width: "38%",
-            background: "linear-gradient(to left, rgba(0,150,255,0.35), transparent)",
-            opacity: hover ? 0.55 / 0.35 : 1,
+            width: "40%",
+            background: "linear-gradient(to left, rgba(0,140,255,0.45), transparent)",
+            opacity: hover ? 1 : 0,
             mixBlendMode: "screen",
           }}
         />
 
-        {/* Dot grid overlay */}
+        {/* Dot grid overlay — masked to background-only regions (edges/corners) */}
         <svg
           className="pointer-events-none absolute inset-0 w-full h-full transition-opacity duration-300"
           style={{ opacity: hover ? 1 : 0 }}
           viewBox={`0 0 ${SIZE} ${SIZE}`}
         >
-          {dots.map((d, i) => (
-            <circle
-              key={i}
-              cx={d.x}
-              cy={d.y}
-              r={1.75}
-              fill={i % 3 === 0 ? "#00d4ff" : "#0077cc"}
-              style={{
-                animation: hover ? `dotBlink ${d.dur}s ease-in-out ${d.delay}s infinite` : "none",
-                opacity: 0,
-              }}
-            />
-          ))}
+          <defs>
+            <mask id={maskId}>
+              {/* white = visible */}
+              <rect width={SIZE} height={SIZE} fill="white" />
+              {/* black ellipse = hidden (subject area) */}
+              <ellipse cx={cx0} cy={cy0} rx={60} ry={90} fill="black" />
+            </mask>
+          </defs>
+          <g mask={`url(#${maskId})`}>
+            {dots.map((d, i) => (
+              <circle
+                key={i}
+                cx={d.x}
+                cy={d.y}
+                r={1.5}
+                fill="#00d4ff"
+                style={{
+                  animation: hover
+                    ? `dotBlink ${d.dur}s ease-in-out ${d.delay}s infinite`
+                    : "none",
+                  opacity: 0,
+                }}
+              />
+            ))}
+          </g>
         </svg>
 
         <style>{`
           @keyframes dotBlink {
             0%, 100% { opacity: 0; }
-            40% { opacity: 0.8; }
-            60% { opacity: 0.2; }
+            40% { opacity: 0.9; }
+            60% { opacity: 0.15; }
           }
         `}</style>
       </div>
