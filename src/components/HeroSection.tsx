@@ -53,7 +53,7 @@ const TerminalMock = () => {
 const AvatarCard = () => {
   const [hover, setHover] = useState(false);
   const SIZE = 220;
-  const SPACING = 20;
+  const SPACING = 28;
   const cols = Math.floor(SIZE / SPACING);
   const rows = Math.floor(SIZE / SPACING);
   const cx0 = SIZE / 2;
@@ -65,20 +65,18 @@ const AvatarCard = () => {
       const x = c * SPACING + SPACING / 2;
       const y = r * SPACING + SPACING / 2;
       const seed = (r * 31 + c * 17) % 100;
-      // distance from center of image — edges first means smaller powerDelay for far-from-center dots
       const dist = Math.hypot(x - SIZE / 2, y - SIZE / 2);
-      const powerDelay = (1 - dist / maxDist) * 0.6; // 0 at edges → 0.6s near center
+      const powerDelay = (1 - dist / maxDist) * 0.6;
       dots.push({
         x,
         y,
         delay: powerDelay + (seed / 100) * 0.4,
-        dur: 1.2 + (seed % 13) / 10,
+        dur: 1.5 + (seed % 16) / 10,
         powerDelay,
       });
     }
   }
 
-  // Mask: hide center ellipse (subject area), show edges only
   const maskId = "avatar-dot-mask";
 
   return (
@@ -103,36 +101,40 @@ const AvatarCard = () => {
 
         {/* Left rim light */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 transition-opacity duration-500 ease-out"
+          className="pointer-events-none absolute top-0 left-0"
           style={{
-            width: "40%",
-            background: "linear-gradient(to right, rgba(0,140,255,0.45), transparent)",
+            width: "35%",
+            height: "100%",
+            background: "linear-gradient(90deg, #0088ff55 0%, #0088ff22 50%, transparent 100%)",
+            borderRadius: "16px 0 0 16px",
+            zIndex: 10,
             opacity: hover ? 1 : 0,
-            mixBlendMode: "screen",
+            transition: "opacity 0.6s ease",
           }}
         />
         {/* Right rim light */}
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 transition-opacity duration-500 ease-out"
+          className="pointer-events-none absolute top-0 right-0"
           style={{
-            width: "40%",
-            background: "linear-gradient(to left, rgba(0,140,255,0.45), transparent)",
+            width: "35%",
+            height: "100%",
+            background: "linear-gradient(270deg, #0088ff55 0%, #0088ff22 50%, transparent 100%)",
+            borderRadius: "0 16px 16px 0",
+            zIndex: 10,
             opacity: hover ? 1 : 0,
-            mixBlendMode: "screen",
+            transition: "opacity 0.6s ease",
           }}
         />
 
         {/* Dot grid overlay — masked to background-only regions (edges/corners) */}
         <svg
-          className="pointer-events-none absolute inset-0 w-full h-full transition-opacity duration-300"
-          style={{ opacity: hover ? 1 : 0 }}
+          className="pointer-events-none absolute inset-0 w-full h-full"
+          style={{ opacity: hover ? 1 : 0, transition: "opacity 0.6s ease" }}
           viewBox={`0 0 ${SIZE} ${SIZE}`}
         >
           <defs>
             <mask id={maskId}>
-              {/* white = visible */}
               <rect width={SIZE} height={SIZE} fill="white" />
-              {/* black ellipse = hidden (subject area) */}
               <ellipse cx={cx0} cy={cy0} rx={60} ry={90} fill="black" />
             </mask>
           </defs>
@@ -142,7 +144,7 @@ const AvatarCard = () => {
                 key={i}
                 cx={d.x}
                 cy={d.y}
-                r={1.5}
+                r={1}
                 fill="#00d4ff"
                 style={{
                   animation: hover
@@ -158,8 +160,8 @@ const AvatarCard = () => {
         <style>{`
           @keyframes dotBlink {
             0%, 100% { opacity: 0; }
-            40% { opacity: 0.9; }
-            60% { opacity: 0.15; }
+            40% { opacity: 0.3; }
+            60% { opacity: 0.05; }
           }
         `}</style>
       </div>
