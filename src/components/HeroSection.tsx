@@ -50,6 +50,104 @@ const TerminalMock = () => {
   );
 };
 
+const AvatarCard = () => {
+  const [hover, setHover] = useState(false);
+  const SIZE = 220;
+  const SPACING = 22;
+  const cols = Math.floor(SIZE / SPACING);
+  const rows = Math.floor(SIZE / SPACING);
+  const dots = [] as { x: number; y: number; delay: number; dur: number }[];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      // deterministic pseudo-random per dot
+      const seed = (r * 31 + c * 17) % 100;
+      dots.push({
+        x: c * SPACING + SPACING / 2,
+        y: r * SPACING + SPACING / 2,
+        delay: (seed / 100) * 0.5,
+        dur: 1.2 + (seed % 13) / 10,
+      });
+    }
+  }
+
+  return (
+    <div className="flex flex-col items-center lg:items-start">
+      <div
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={() => setHover((h) => !h)}
+        className="relative overflow-hidden border-[1.5px] border-glow-green cursor-pointer group"
+        style={{
+          width: 220,
+          height: 220,
+          borderRadius: 16,
+          boxShadow: "0 0 30px hsl(var(--glow-green) / 0.25), 0 0 60px hsl(var(--glow-green) / 0.1)",
+        }}
+      >
+        <img
+          src={karlAvatar}
+          alt="Karl Angelo Alamida"
+          className="w-full h-full object-cover transition-all duration-500"
+          style={{
+            filter: hover ? "hue-rotate(10deg) saturate(1.4)" : "none",
+          }}
+        />
+
+        {/* Left rim light */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 transition-opacity duration-500"
+          style={{
+            width: "38%",
+            background: "linear-gradient(to right, rgba(0,150,255,0.35), transparent)",
+            opacity: hover ? 0.55 / 0.35 : 1,
+            mixBlendMode: "screen",
+          }}
+        />
+        {/* Right rim light */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 transition-opacity duration-500"
+          style={{
+            width: "38%",
+            background: "linear-gradient(to left, rgba(0,150,255,0.35), transparent)",
+            opacity: hover ? 0.55 / 0.35 : 1,
+            mixBlendMode: "screen",
+          }}
+        />
+
+        {/* Dot grid overlay */}
+        <svg
+          className="pointer-events-none absolute inset-0 w-full h-full transition-opacity duration-300"
+          style={{ opacity: hover ? 1 : 0 }}
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
+        >
+          {dots.map((d, i) => (
+            <circle
+              key={i}
+              cx={d.x}
+              cy={d.y}
+              r={1.75}
+              fill={i % 3 === 0 ? "#00d4ff" : "#0077cc"}
+              style={{
+                animation: hover ? `dotBlink ${d.dur}s ease-in-out ${d.delay}s infinite` : "none",
+                opacity: 0,
+              }}
+            />
+          ))}
+        </svg>
+
+        <style>{`
+          @keyframes dotBlink {
+            0%, 100% { opacity: 0; }
+            40% { opacity: 0.8; }
+            60% { opacity: 0.2; }
+          }
+        `}</style>
+      </div>
+      <span className="mt-2 font-mono text-[11px] text-glow-green/80">{">_"} karl.jpg</span>
+    </div>
+  );
+};
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden pt-20">
