@@ -4,6 +4,7 @@ import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Dat
 import { SectionHeader } from "./SkillsSection";
 import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
+import realEstateAutomationImg from "@/assets/real-estate-automation.png";
 
 /**
  * ============================================================
