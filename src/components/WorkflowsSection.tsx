@@ -240,6 +240,13 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
               </div>
             )}
 
+            {/* Recording coming soon badge for screenshot-based Zapier cards */}
+            {isImage && (
+              <span className="absolute bottom-2 right-2 font-mono text-[10px] text-glow-green/80 px-2 py-0.5 border border-glow-green/30 rounded-sm bg-background/70 backdrop-blur-sm">
+                [ Recording coming soon ]
+              </span>
+            )}
+
             <div
               className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
                 hovered ? "opacity-100" : "opacity-0"
