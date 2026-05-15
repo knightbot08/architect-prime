@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Terminal, ChevronDown, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import karlAvatar from "@/assets/karl-avatar.png";
+import karlDefault from "@/assets/karl-default.jpg";
+import karlHover from "@/assets/karl-hover.jpg";
 
 const terminalLines = [
   "> Connecting to Google Sheets...  ✓",
@@ -57,22 +58,20 @@ const AvatarCard = () => {
   const cols = Math.floor(SIZE / SPACING);
   const rows = Math.floor(SIZE / SPACING);
   const cx0 = SIZE / 2;
-  const cy0 = SIZE * 0.4;
-  const maxDist = Math.hypot(SIZE / 2, SIZE / 2);
-  const dots = [] as { x: number; y: number; delay: number; dur: number; powerDelay: number }[];
+  const cy0 = SIZE * 0.38;
+  const rx = 60;
+  const ry = 90;
+  const dots = [] as { x: number; y: number; delay: number; dur: number }[];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const x = c * SPACING + SPACING / 2;
       const y = r * SPACING + SPACING / 2;
       const seed = (r * 31 + c * 17) % 100;
-      const dist = Math.hypot(x - SIZE / 2, y - SIZE / 2);
-      const powerDelay = (1 - dist / maxDist) * 0.6;
       dots.push({
         x,
         y,
-        delay: powerDelay + (seed / 100) * 0.4,
+        delay: (seed / 100) * 2,
         dur: 1.5 + (seed % 16) / 10,
-        powerDelay,
       });
     }
   }
@@ -94,41 +93,28 @@ const AvatarCard = () => {
         }}
       >
         <img
-          src={karlAvatar}
+          src={karlDefault}
           alt="Karl Angelo Alamida"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <img
+          src={karlHover}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: hover ? 1 : 0, transition: "opacity 0.6s ease" }}
         />
 
-        {/* Right-side subject backlight / rim glow tracing hair + shoulder silhouette */}
+        {/* Dot grid overlay — masked to background only */}
         <svg
           className="pointer-events-none absolute inset-0 w-full h-full"
-          viewBox={`0 0 ${SIZE} ${SIZE}`}
-          style={{
-            zIndex: 10,
-            opacity: hover ? 0.7 : 0,
-            transition: "opacity 0.6s ease",
-            filter: "blur(6px)",
-          }}
-        >
-          <path
-            d="M 165,20 C 185,50 195,90 185,130 C 178,155 165,170 150,185"
-            fill="none"
-            stroke="#00ccff"
-            strokeWidth={8}
-            strokeLinecap="round"
-          />
-        </svg>
-
-        {/* Dot grid overlay — masked to background-only regions (edges/corners) */}
-        <svg
-          className="pointer-events-none absolute inset-0 w-full h-full"
-          style={{ opacity: hover ? 1 : 0, transition: "opacity 0.6s ease" }}
+          style={{ opacity: hover ? 1 : 0, transition: "opacity 0.4s ease", zIndex: 10 }}
           viewBox={`0 0 ${SIZE} ${SIZE}`}
         >
           <defs>
             <mask id={maskId}>
               <rect width={SIZE} height={SIZE} fill="white" />
-              <ellipse cx={cx0} cy={cy0} rx={60} ry={90} fill="black" />
+              <ellipse cx={cx0} cy={cy0} rx={rx} ry={ry} fill="black" />
             </mask>
           </defs>
           <g mask={`url(#${maskId})`}>
@@ -153,8 +139,7 @@ const AvatarCard = () => {
         <style>{`
           @keyframes dotBlink {
             0%, 100% { opacity: 0; }
-            40% { opacity: 0.3; }
-            60% { opacity: 0.05; }
+            50% { opacity: 0.3; }
           }
         `}</style>
       </div>
