@@ -4,6 +4,7 @@ import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Dat
 import { SectionHeader } from "./SkillsSection";
 import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
+import realEstateAutomationImg from "@/assets/real-estate-automation.png";
 
 /**
  * ============================================================
@@ -110,12 +111,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-07",
-    title: "Discord Community Digest",
-    platform: "n8n",
-    description: "Pulls daily activity from key Discord channels, summarizes it with an LLM, and posts a clean digest to Telegram. Solves information overload for busy community managers without needing to scroll through every channel.",
-    icon: MessageSquare,
-    thumbnail: null,
-    gif: null,
+    title: "Real Estate Automation Workflow",
+    platform: "Zapier",
+    description: "Lead capture from FB using Chatfuel flow + HubSpot + AI by Zapier + Twilio + Zapier",
+    icon: Zap,
+    thumbnail: realEstateAutomationImg,
+    gif: realEstateAutomationImg,
+    image: realEstateAutomationImg,
   },
   {
     id: "wf-08",
@@ -236,6 +238,13 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
               <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
                 ⤢ enlarge
               </div>
+            )}
+
+            {/* Recording coming soon badge for screenshot-based Zapier cards */}
+            {isImage && (
+              <span className="absolute bottom-2 right-2 font-mono text-[10px] text-glow-green/80 px-2 py-0.5 border border-glow-green/30 rounded-sm bg-background/70 backdrop-blur-sm">
+                [ Recording coming soon ]
+              </span>
             )}
 
             <div
