@@ -5,6 +5,7 @@ import { SectionHeader } from "./SkillsSection";
 import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
 import realEstateAutomationImg from "@/assets/real-estate-automation.png";
+import simpleReminderAutomationImg from "@/assets/simple-reminder-automation.png";
 
 /**
  * ============================================================
@@ -82,12 +83,13 @@ const workflows: WorkflowItem[] = [
   },
   {
     id: "wf-04",
-    title: "GHL ↔ Google Sheets Sync",
+    title: "Simple Reminder Automation",
     platform: "n8n",
-    description: "Two-way sync that keeps GoHighLevel contacts and a Google Sheet in lockstep. Eliminates duplicate data entry and broken handoffs between the CRM and operational spreadsheets used by the team.",
+    description: "Remind book inspectors via sms and remind the team for sending manual reminder from different channel/lead sources.",
     icon: Database,
-    thumbnail: null,
-    gif: null,
+    thumbnail: simpleReminderAutomationImg,
+    gif: simpleReminderAutomationImg,
+    image: simpleReminderAutomationImg,
   },
   {
     id: "wf-05",
