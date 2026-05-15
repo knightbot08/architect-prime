@@ -99,32 +99,25 @@ const AvatarCard = () => {
           className="w-full h-full object-cover"
         />
 
-        {/* Left rim light */}
-        <div
-          className="pointer-events-none absolute top-0 left-0"
+        {/* Right-side subject backlight / rim glow tracing hair + shoulder silhouette */}
+        <svg
+          className="pointer-events-none absolute inset-0 w-full h-full"
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
           style={{
-            width: "35%",
-            height: "100%",
-            background: "linear-gradient(90deg, #0088ff55 0%, #0088ff22 50%, transparent 100%)",
-            borderRadius: "16px 0 0 16px",
             zIndex: 10,
-            opacity: hover ? 1 : 0,
+            opacity: hover ? 0.7 : 0,
             transition: "opacity 0.6s ease",
+            filter: "blur(6px)",
           }}
-        />
-        {/* Right rim light */}
-        <div
-          className="pointer-events-none absolute top-0 right-0"
-          style={{
-            width: "35%",
-            height: "100%",
-            background: "linear-gradient(270deg, #0088ff55 0%, #0088ff22 50%, transparent 100%)",
-            borderRadius: "0 16px 16px 0",
-            zIndex: 10,
-            opacity: hover ? 1 : 0,
-            transition: "opacity 0.6s ease",
-          }}
-        />
+        >
+          <path
+            d="M 165,20 C 185,50 195,90 185,130 C 178,155 165,170 150,185"
+            fill="none"
+            stroke="#00ccff"
+            strokeWidth={8}
+            strokeLinecap="round"
+          />
+        </svg>
 
         {/* Dot grid overlay — masked to background-only regions (edges/corners) */}
         <svg
