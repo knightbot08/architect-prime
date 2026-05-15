@@ -148,9 +148,80 @@ const AvatarCard = () => {
   );
 };
 
+const AmbientDots = () => {
+  const canvasRef = useState<HTMLCanvasElement | null>(null);
+  const ref = (node: HTMLCanvasElement | null) => canvasRef[1](node);
+  useEffect(() => {
+    const canvas = canvasRef[0];
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    let raf = 0;
+    let dots: { x: number; y: number; dur: number; offset: number }[] = [];
+    const dpr = window.devicePixelRatio || 1;
+
+    const setup = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const w = parent.clientWidth;
+      const h = parent.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const spacing = window.innerWidth < 768 ? 40 : 28;
+      dots = [];
+      for (let y = spacing / 2; y < h; y += spacing) {
+        for (let x = spacing / 2; x < w; x += spacing) {
+          dots.push({
+            x,
+            y,
+            dur: 2000 + Math.random() * 2000,
+            offset: Math.random() * 4000,
+          });
+        }
+      }
+    };
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const d of dots) {
+        const phase = ((t + d.offset) % d.dur) / d.dur;
+        const op = Math.sin(phase * Math.PI) * 0.12;
+        if (op <= 0) continue;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(0, 212, 255, ${op})`;
+        ctx.arc(d.x, d.y, 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    setup();
+    raf = requestAnimationFrame(draw);
+    const onResize = () => setup();
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [canvasRef[0]]);
+
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden
+      className="absolute inset-0 pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  );
+};
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden pt-20">
+      <AmbientDots />
       <div className="absolute inset-0 scanline" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-glow-green to-transparent opacity-30" />
