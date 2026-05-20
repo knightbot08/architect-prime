@@ -266,7 +266,7 @@ const HeroSection = () => {
             </p>
 
             <p className="text-base md:text-lg text-secondary-foreground max-w-2xl mt-6 leading-relaxed font-light">
-              I build automation workflows that eliminate manual work — using <span className="text-glow-green">n8n, Make.com, Zapier, and AI agents</span>. From lead qualification pipelines to payroll systems, I turn messy processes into self-running machines.
+              I build automation workflows that eliminate manual work — using <span className="text-glow-green">n8n, Zapier, and AI agents</span>. From lead qualification pipelines to invoices, I turn messy processes into self-running machines.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-6">
