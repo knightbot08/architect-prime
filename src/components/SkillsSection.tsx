@@ -5,7 +5,7 @@ const skills = [
   // Automation — highlighted first
   { icon: Bot, label: "AI Automation & LLM Integration", color: "text-glow-green" },
   { icon: Workflow, label: "n8n Workflow Engineering", color: "text-glow-green" },
-  { icon: Zap, label: "Zapier & Make.com Automation", color: "text-glow-green" },
+  { icon: Zap, label: "Zapier Automation", color: "text-glow-green" },
   { icon: Webhook, label: "API & Webhook Integrations", color: "text-glow-green" },
   { icon: GitBranch, label: "Process Automation & Routing", color: "text-glow-green" },
   // Appointment / Accounts
