@@ -5,7 +5,7 @@ const skills = [
   // Automation — highlighted first
   { icon: Bot, label: "AI Automation & LLM Integration", color: "text-glow-green" },
   { icon: Workflow, label: "n8n Workflow Engineering", color: "text-glow-green" },
-  { icon: Zap, label: "Zapier & Make.com Automation", color: "text-glow-green" },
+  { icon: Zap, label: "Zapier Automation", color: "text-glow-green" },
   { icon: Webhook, label: "API & Webhook Integrations", color: "text-glow-green" },
   { icon: GitBranch, label: "Process Automation & Routing", color: "text-glow-green" },
   // Appointment / Accounts
@@ -23,7 +23,7 @@ const tiers = [
   {
     label: "Core Tools",
     accent: "border-glow-green text-glow-green",
-    items: ["n8n", "Make.com", "Zapier", "Airtable", "Google Sheets", "ManyChat"],
+    items: ["n8n", "Zapier", "HubSpot", "Airtable", "Google Sheets", "ManyChat"],
   },
   {
     label: "Working With",
@@ -34,7 +34,7 @@ const tiers = [
     label: "Familiar",
     accent: "border-glow-blue text-glow-blue",
     items: [
-      "Windows / Linux", "Virtual Machines", "WireGuard VPN", "AnyDesk", "TeamViewer",
+      "Make.com", "Windows / Linux", "Virtual Machines", "WireGuard VPN", "AnyDesk", "TeamViewer",
       "Networking", "CCTV / Alarm", "Hardware Troubleshooting",
       "Multilogin", "Dolphin Anty", "Residential Proxies", "Google Calendar",
       "Notion", "GitHub", "Lovable", "v0.app", "Vercel", "Claude Code",

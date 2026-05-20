@@ -121,33 +121,6 @@ const workflows: WorkflowItem[] = [
     gif: realEstateAutomationImg,
     image: realEstateAutomationImg,
   },
-  {
-    id: "wf-08",
-    title: "Webhook → CRM Pipeline",
-    platform: "Zapier",
-    description: "Captures form submissions via webhook, enriches the payload with extra context, and pushes the contact into a HighLevel pipeline. Removes copy-paste between forms and CRM, so no lead is lost on the way in.",
-    icon: Webhook,
-    thumbnail: null,
-    gif: null,
-  },
-  {
-    id: "wf-09",
-    title: "Multi-Step Data Routing",
-    platform: "Make",
-    description: "A branching Make.com scenario using routers and aggregators to send each record to the right destination based on field values. Replaces a brittle stack of one-off Zaps with a single readable flow.",
-    icon: GitBranch,
-    thumbnail: null,
-    gif: null,
-  },
-  {
-    id: "wf-10",
-    title: "Appointment Reminder Bot",
-    platform: "n8n",
-    description: "Watches the booking calendar and automatically sends SMS and email reminders before each appointment. Cuts no-shows and removes the daily manual task of chasing confirmations.",
-    icon: Workflow,
-    thumbnail: null,
-    gif: null,
-  },
 ];
 
 const platformStyles: Record<Platform, string> = {
