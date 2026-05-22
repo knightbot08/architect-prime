@@ -53,6 +53,16 @@ interface WorkflowItem {
 const workflows: WorkflowItem[] = [
   {
     id: "wf-01",
+    title: "OLJPH Job Scraper with cover letter optimizer",
+    platform: "n8n",
+    description: "Scrapes job listings from OnlineJobs.ph based on search keywords Generates a personalized cover letter for each job using an AI language model via OpenRouter after.",
+    icon: Bot,
+    thumbnail: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif#t=0.1",
+    gif: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif",
+    loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
+  },
+  {
+    id: "wf-02",
     title: "Salary Invoice Generator",
     platform: "n8n",
     description: "Auto-generate monthly salary invoices from Sheets.",
@@ -62,7 +72,7 @@ const workflows: WorkflowItem[] = [
     loomUrl: "https://www.loom.com/share/02b49aac0f3b413c87b18f1f125cbfc1",
   },
   {
-    id: "wf-02",
+    id: "wf-03",
     title: "Simple AI Agent for Room Rentals page on FB",
     platform: "n8n",
     description: "Facebook Messenger → AI Agent",
@@ -72,7 +82,7 @@ const workflows: WorkflowItem[] = [
     loomUrl: "https://www.loom.com/share/48722d4c07d74a1083268344aafe2e67",
   },
   {
-    id: "wf-03",
+    id: "wf-04",
     title: "AI Job Scraper with Resume Optimizer",
     platform: "n8n",
     description: "Scrape job boards, filter via LLM and optimize resume, push to Slack.",
@@ -82,7 +92,7 @@ const workflows: WorkflowItem[] = [
     loomUrl: "https://www.loom.com/share/479116cd8227426ea6679572171641f9",
   },
   {
-    id: "wf-04",
+    id: "wf-05",
     title: "Simple Reminder Automation",
     platform: "n8n",
     description: "Remind book inspectors via sms and remind the team for sending manual reminder from different channel/lead sources.",
@@ -92,7 +102,7 @@ const workflows: WorkflowItem[] = [
     image: simpleReminderAutomationImg,
   },
   {
-    id: "wf-05",
+    id: "wf-06",
     title: "Leads Enrichment Automation",
     platform: "Zapier",
     description: "Turning raw leads into organized, high-quality opportunities through smart automation.",
@@ -102,7 +112,7 @@ const workflows: WorkflowItem[] = [
     image: leadsEnrichmentImg,
   },
   {
-    id: "wf-06",
+    id: "wf-07",
     title: "AI Content Repurposing",
     platform: "Zapier",
     description: "Transforming one piece of content into multiple high-impact formats automatically, saving time and maximizing reach.",
@@ -112,7 +122,7 @@ const workflows: WorkflowItem[] = [
     image: aiContentRepurposingImg,
   },
   {
-    id: "wf-07",
+    id: "wf-08",
     title: "Real Estate Automation Workflow",
     platform: "Zapier",
     description: "Lead capture from FB using Chatfuel flow + HubSpot + AI by Zapier + Twilio + Zapier",
@@ -120,16 +130,6 @@ const workflows: WorkflowItem[] = [
     thumbnail: realEstateAutomationImg,
     gif: realEstateAutomationImg,
     image: realEstateAutomationImg,
-  },
-  {
-    id: "wf-08",
-    title: "OLJPH Job Scraper with cover letter optimizer",
-    platform: "n8n",
-    description: "Scrapes job listings from OnlineJobs.ph based on search keywords Generates a personalized cover letter for each job using an AI language model via OpenRouter after.",
-    icon: Bot,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif#t=0.1",
-    gif: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif",
-    loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
   },
 ];
 
