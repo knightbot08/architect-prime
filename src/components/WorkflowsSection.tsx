@@ -1,11 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch, X } from "lucide-react";
+import { Workflow, Zap, Bot, Mail, Calendar, FileSpreadsheet, MessageSquare, Database, Webhook, GitBranch, X, Play } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
 import realEstateAutomationImg from "@/assets/real-estate-automation.png";
 import simpleReminderAutomationImg from "@/assets/simple-reminder-automation.png";
+import salaryInvoiceGeneratorThumb from "@/assets/salary-invoice-generator-thumb.png";
 
 /**
  * ============================================================
@@ -67,7 +68,7 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Auto-generate monthly salary invoices from Sheets.",
     icon: FileSpreadsheet,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif#t=0.1",
+    thumbnail: salaryInvoiceGeneratorThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif",
     loomUrl: "https://www.loom.com/share/02b49aac0f3b413c87b18f1f125cbfc1",
   },
@@ -169,10 +170,21 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
     >
       {(() => {
         const MediaWrapper: any = workflow.loomUrl ? "a" : isImage ? "button" : "div";
+        const showPlayOverlay = hasMedia && !isImage && !hovered;
+        const handleMediaClick = (e: React.MouseEvent) => {
+          // On touch devices (no hover), first tap previews the GIF; second tap follows the link / opens lightbox.
+          const isTouch = typeof window !== "undefined" && window.matchMedia?.("(hover: none)").matches;
+          if (isTouch && hasMedia && !hovered) {
+            e.preventDefault();
+            setHovered(true);
+            return;
+          }
+          if (isImage) setLightboxOpen(true);
+        };
         const wrapperProps = workflow.loomUrl
-          ? { href: workflow.loomUrl, target: "_blank", rel: "noopener noreferrer" }
+          ? { href: workflow.loomUrl, target: "_blank", rel: "noopener noreferrer", onClick: handleMediaClick }
           : isImage
-          ? { type: "button", onClick: () => setLightboxOpen(true), "aria-label": `Enlarge ${workflow.title}` }
+          ? { type: "button", onClick: handleMediaClick, "aria-label": `Enlarge ${workflow.title}` }
           : {};
         return (
           <MediaWrapper
@@ -180,14 +192,35 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
             className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block cursor-pointer text-left"
           >
             {hasMedia ? (
-              <img
-                src={hovered ? (workflow.gif as string) : (workflow.thumbnail as string)}
-                alt={`${workflow.title} workflow preview`}
-                loading="lazy"
-                className={`w-full h-full transition-transform duration-500 ${
-                  isImage ? "object-contain bg-background group-hover:scale-105" : "object-cover"
-                }`}
-              />
+              <>
+                {/* Static thumbnail (default) */}
+                <img
+                  src={workflow.thumbnail as string}
+                  alt={`${workflow.title} workflow preview`}
+                  loading="lazy"
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
+                    isImage ? "object-contain bg-background group-hover:scale-105" : "object-cover"
+                  } ${hovered ? "opacity-0" : "opacity-100"}`}
+                />
+                {/* Animated GIF (revealed on hover/tap) */}
+                <img
+                  src={workflow.gif as string}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
+                    isImage ? "object-contain bg-background" : "object-cover"
+                  } ${hovered ? "opacity-100" : "opacity-0"}`}
+                />
+                {/* YouTube-style play button overlay */}
+                {showPlayOverlay && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-background/60 backdrop-blur-sm border border-foreground/20 shadow-lg transition-transform duration-200 group-hover:scale-110">
+                      <Play className="w-6 h-6 text-foreground fill-foreground translate-x-0.5" />
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
               // No recording yet — styled terminal placeholder
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
@@ -203,7 +236,6 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
                 </span>
               </div>
             )}
-
             {/* Platform tag */}
             <div
               className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
