@@ -68,7 +68,7 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Auto-generate monthly salary invoices from Sheets.",
     icon: FileSpreadsheet,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif#t=0.1",
+    thumbnail: salaryInvoiceGeneratorThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/02b49aac0f3b413c87b18f1f125cbfc1-4f4f881ddcbd547d-full-play.gif",
     loomUrl: "https://www.loom.com/share/02b49aac0f3b413c87b18f1f125cbfc1",
   },
