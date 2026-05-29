@@ -204,7 +204,7 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
                 />
                 {/* Animated GIF (revealed on hover/tap) */}
                 <img
-                  src={hovered ? (workflow.gif as string) : ""}
+                  src={workflow.gif as string}
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
