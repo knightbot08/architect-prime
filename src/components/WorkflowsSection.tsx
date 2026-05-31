@@ -6,6 +6,7 @@ import leadsEnrichmentImg from "@/assets/leads-enrichment.png";
 import aiContentRepurposingImg from "@/assets/ai-content-repurposing.png";
 import realEstateAutomationImg from "@/assets/real-estate-automation.png";
 import simpleReminderAutomationImg from "@/assets/simple-reminder-automation.png";
+import simpleReminderAutomationThumb from "@/assets/simple-reminder-automation-thumb.png";
 import salaryInvoiceGeneratorThumb from "@/assets/salary-invoice-generator-thumb.png";
 import locationPropertyThumb from "@/assets/location-property-availability-thumb.png";
 
@@ -69,9 +70,9 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Remind book inspectors via sms and remind the team for sending manual reminder from different channel/lead sources.",
     icon: Database,
-    thumbnail: simpleReminderAutomationImg,
-    gif: simpleReminderAutomationImg,
-    image: simpleReminderAutomationImg,
+    thumbnail: simpleReminderAutomationThumb,
+    gif: "https://cdn.loom.com/sessions/thumbnails/ecf63d4e288b4762bcd23d4e9ed74244-68def2fabb83b16a-full-play.gif",
+    loomUrl: "https://www.loom.com/share/ecf63d4e288b4762bcd23d4e9ed74244",
   },
   {
     id: "wf-03",
