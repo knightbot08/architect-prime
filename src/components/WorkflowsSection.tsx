@@ -9,6 +9,7 @@ import simpleReminderAutomationImg from "@/assets/simple-reminder-automation.png
 import simpleReminderAutomationThumb from "@/assets/simple-reminder-automation-thumb.png";
 import salaryInvoiceGeneratorThumb from "@/assets/salary-invoice-generator-thumb.png";
 import locationPropertyThumb from "@/assets/location-property-availability-thumb.png";
+import oljphJobScraperThumb from "@/assets/oljph-job-scraper-thumb.png";
 
 /**
  * ============================================================
