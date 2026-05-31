@@ -9,6 +9,7 @@ import simpleReminderAutomationImg from "@/assets/simple-reminder-automation.png
 import simpleReminderAutomationThumb from "@/assets/simple-reminder-automation-thumb.png";
 import salaryInvoiceGeneratorThumb from "@/assets/salary-invoice-generator-thumb.png";
 import locationPropertyThumb from "@/assets/location-property-availability-thumb.png";
+import oljphJobScraperThumb from "@/assets/oljph-job-scraper-thumb.png";
 
 /**
  * ============================================================
@@ -41,6 +42,7 @@ interface WorkflowItem {
   gif: string | null;       // e.g. "/workflows/workflow-01.gif" OR same Loom thumbnail .gif URL
   loomUrl?: string;         // Optional: Loom share link — card becomes clickable to open the recording
   image?: string;           // Optional: static image — clicking opens a lightbox to enlarge it
+  badge?: string;           // Optional: small label shown on the card (e.g. "Personal Project")
 }
 
 /**
@@ -90,9 +92,10 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Scrapes job listings from OnlineJobs.ph based on search keywords Generates a personalized cover letter for each job using an AI language model via OpenRouter after.",
     icon: Bot,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif#t=0.1",
+    thumbnail: oljphJobScraperThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif",
     loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
+    badge: "Personal Project",
   },
 ];
 
@@ -239,9 +242,16 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
 
       {/* Meta */}
       <div className="p-4">
-        <h3 className="font-heading font-semibold text-base text-foreground mb-1">
-          {workflow.title}
-        </h3>
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <h3 className="font-heading font-semibold text-base text-foreground">
+            {workflow.title}
+          </h3>
+          {workflow.badge && (
+            <span className="shrink-0 text-[10px] font-mono uppercase tracking-wider text-glow-green border border-glow-green/40 px-2 py-0.5 rounded-sm bg-glow-green/5">
+              {workflow.badge}
+            </span>
+          )}
+        </div>
         <p className="text-xs text-muted-foreground leading-relaxed font-mono">
           {workflow.description}
         </p>
