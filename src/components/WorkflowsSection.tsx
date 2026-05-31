@@ -42,6 +42,7 @@ interface WorkflowItem {
   gif: string | null;       // e.g. "/workflows/workflow-01.gif" OR same Loom thumbnail .gif URL
   loomUrl?: string;         // Optional: Loom share link — card becomes clickable to open the recording
   image?: string;           // Optional: static image — clicking opens a lightbox to enlarge it
+  badge?: string;           // Optional: small label shown on the card (e.g. "Personal Project")
 }
 
 /**
