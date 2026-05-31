@@ -1,8 +1,9 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { workflows } from "./WorkflowsSection";
 
 const stats = [
-  { value: 10, suffix: "+", label: "Workflows Built" },
+  { value: workflows.length, suffix: "", label: "Workflows Built" },
   { value: 3, suffix: "", label: "Automation Platforms" },
   { value: 2, suffix: "+", label: "Months Hands-On" },
   { value: 40, suffix: "+", label: "FB Accounts Managed" },
