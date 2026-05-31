@@ -73,6 +73,7 @@ const workflows: WorkflowItem[] = [
     thumbnail: simpleReminderAutomationThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/ecf63d4e288b4762bcd23d4e9ed74244-68def2fabb83b16a-full-play.gif",
     loomUrl: "https://www.loom.com/share/ecf63d4e288b4762bcd23d4e9ed74244",
+  },
   {
     id: "wf-03",
     title: "Salary Invoice Generator",
