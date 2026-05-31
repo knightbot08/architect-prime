@@ -242,9 +242,16 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
 
       {/* Meta */}
       <div className="p-4">
-        <h3 className="font-heading font-semibold text-base text-foreground mb-1">
-          {workflow.title}
-        </h3>
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <h3 className="font-heading font-semibold text-base text-foreground">
+            {workflow.title}
+          </h3>
+          {workflow.badge && (
+            <span className="shrink-0 text-[10px] font-mono uppercase tracking-wider text-glow-green border border-glow-green/40 px-2 py-0.5 rounded-sm bg-glow-green/5">
+              {workflow.badge}
+            </span>
+          )}
+        </div>
         <p className="text-xs text-muted-foreground leading-relaxed font-mono">
           {workflow.description}
         </p>
