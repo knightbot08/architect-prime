@@ -59,7 +59,7 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "An n8n workflow that takes a plain-language location query and returns the nearest available rental properties with approximate distances.",
     icon: Bot,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/3fdb4474eb984f9c80d09c846823b85f-3aafebbe0f1c770d-full-play.gif#t=0.1",
+    thumbnail: locationPropertyThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/3fdb4474eb984f9c80d09c846823b85f-3aafebbe0f1c770d-full-play.gif",
     loomUrl: "https://www.loom.com/share/3fdb4474eb984f9c80d09c846823b85f",
   },
