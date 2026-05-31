@@ -55,7 +55,7 @@ interface WorkflowItem {
  * and add `loomUrl` so clicking the card opens the recording.
  */
 
-const workflows: WorkflowItem[] = [
+export const workflows: WorkflowItem[] = [
   {
     id: "wf-01",
     title: "AI Agent – Location-Based Property Availability",
