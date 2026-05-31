@@ -91,9 +91,10 @@ const workflows: WorkflowItem[] = [
     platform: "n8n",
     description: "Scrapes job listings from OnlineJobs.ph based on search keywords Generates a personalized cover letter for each job using an AI language model via OpenRouter after.",
     icon: Bot,
-    thumbnail: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif#t=0.1",
+    thumbnail: oljphJobScraperThumb,
     gif: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif",
     loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
+    badge: "Personal Project",
   },
 ];
 
