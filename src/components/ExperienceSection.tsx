@@ -13,7 +13,7 @@ const automationHighlights = [
 
 const roles = [
   {
-    title: "Automation & Operations Specialist",
+    title: "Appointment Setter & Facebook Accounts Manager",
     period: "2025–Present",
     items: [
       "Built and managed a 40+ account Facebook operation, deploying n8n automation workflows to streamline lead qualification and reduce manual follow-up time across a 6-property rental portfolio.",
@@ -23,6 +23,19 @@ const roles = [
       "Coordinated and optimized workflows to maintain consistent account health and messaging performance",
     ],
     tools: ["n8n", "Facebook Marketplace", "Multilogin", "WireGuard VPN", "Google Sheets"],
+  },
+  {
+    title: "Automation Specialist — Self-Initiated Projects",
+    period: "2025–Present",
+    label: "Freelance / Independent",
+    items: [
+      "Built and deployed automation workflows across n8n and Zapier for real business operations",
+      "Developed a live AI agent for FB Messenger handling lead qualification across a room rental operation",
+      "Built a location-based property matching system using Google Maps API, Google Sheets, and OpenRouter/DeepSeek",
+      "Designed a 5-Zap real estate lead capture and follow-up system integrating Facebook, HubSpot, Twilio, and Gmail",
+      "Automated bi-monthly salary invoice generation using n8n, Google Sheets, and Documentero",
+    ],
+    tools: ["n8n", "Zapier", "OpenRouter", "Google Sheets", "Airtable", "HubSpot", "Twilio", "ManyChat", "Documentero"],
   },
   {
     title: "IT Support Technician — MLhuillier INC, Philippines",
@@ -93,9 +106,14 @@ const ExperienceSection = () => {
               className="p-6 border border-border rounded-md bg-background border-l-2 border-l-primary"
             >
               <div className="flex items-start justify-between flex-wrap gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-primary" />
-                  <h4 className="font-heading font-semibold text-foreground">{role.title}</h4>
+                <div className="flex items-start gap-2">
+                  <Briefcase className="w-4 h-4 text-primary mt-1" />
+                  <div>
+                    <h4 className="font-heading font-semibold text-foreground">{role.title}</h4>
+                    {role.label && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{role.label}</p>
+                    )}
+                  </div>
                 </div>
                 <span className="text-xs font-mono text-muted-foreground">{role.period}</span>
               </div>
