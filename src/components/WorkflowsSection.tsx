@@ -10,6 +10,7 @@ import simpleReminderAutomationThumb from "@/assets/simple-reminder-automation-t
 import salaryInvoiceGeneratorThumb from "@/assets/salary-invoice-generator-thumb.png";
 import locationPropertyThumb from "@/assets/location-property-availability-thumb.png";
 import oljphJobScraperThumb from "@/assets/oljph-job-scraper-thumb.png";
+import realEstateLeadCaptureThumb from "@/assets/real-estate-lead-capture-thumb.png";
 
 /**
  * ============================================================
@@ -96,6 +97,16 @@ export const workflows: WorkflowItem[] = [
     gif: "https://cdn.loom.com/sessions/thumbnails/8d1b8b62548744b78ab922215fd99023-beb7bdbaa70f8dd9-full-play.gif",
     loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
     badge: "Personal Project",
+  },
+  {
+    id: "wf-05",
+    title: "Real Estate Lead Capture & Follow-Up Automation",
+    platform: "Zapier",
+    description: "Multi-step Zapier workflow for a real estate lead system connecting Facebook Lead Ads, HubSpot, OpenAI, Twilio, and Gmail.",
+    icon: Zap,
+    thumbnail: realEstateLeadCaptureThumb,
+    gif: "https://cdn.loom.com/sessions/thumbnails/f9e580fe3ff74a13b692f902945dd18c-c4387eed7885ca0c-full-play.gif",
+    loomUrl: "https://www.loom.com/share/f9e580fe3ff74a13b692f902945dd18c",
   },
 ];
 
