@@ -3,7 +3,7 @@ import { Briefcase, Sparkles } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
 
 const automationHighlights = [
-  { name: "n8n", metric: "Building", detail: "Designing multi-step workflows: AI agents, data sync, invoice generation, lead routing." },
+  { name: "n8n", metric: "Shipped", detail: "Multi-step workflows in production: AI agents, invoice generation, lead qualification, location-based property matching, and SMS reminders." },
   { name: "Make.com", metric: "Practiced", detail: "Branching scenarios with routers, aggregators and error handlers for resilient automations." },
   { name: "Zapier", metric: "Practiced", detail: "Lightweight automations connecting CRMs, forms, email and AI classifiers." },
   { name: "AI Agents", metric: "Shipped", detail: "Conversational AI agent for a Facebook Rentals page that qualifies leads and answers FAQs." },
@@ -19,7 +19,7 @@ const roles = [
       "Built and managed a 40+ account Facebook operation, deploying n8n automation workflows to streamline lead qualification and reduce manual follow-up time across a 6-property rental portfolio.",
       "Diagnosed and resolved Facebook account issues — restrictions, disabled accounts, verification challenges",
       "Administered IT infrastructure: virtual machines, WireGuard VPN, Multilogin browser environments for multi-account ops",
-      "Built and tested n8n automations to streamline lead qualification and follow-up workflows",
+      "Designed and deployed a location-based AI agent using Google Maps API and OpenRouter/DeepSeek to match prospects to properties across 90+ listings",
       "Coordinated and optimized workflows to maintain consistent account health and messaging performance",
     ],
     tools: ["n8n", "Facebook Marketplace", "Multilogin", "WireGuard VPN", "Google Sheets"],
@@ -38,13 +38,13 @@ const roles = [
 ];
 
 const learning = {
-  title: "AI Automation Specialist — Active Focus",
+  title: "Automation Specialist — In Progress",
   items: [
-    "Workflow Automation — Building production-ready pipelines in n8n, Make.com and Zapier",
-    "AI Agents & Prompt Engineering — Designing LLM-powered agents (OpenAI, Claude) for real client use cases",
-    "CRM & Marketing Automation — HighLevel (GoHighLevel) for client management and automated funnels",
-    "AI-Assisted Development — Claude Code, Lovable and v0.app for rapid full-stack prototyping",
-    "API Integrations — REST, webhooks and JSON wrangling to connect any SaaS to any other SaaS",
+    "Workflow Automation — Shipping production workflows in n8n, Make.com, and Zapier for real business operations",
+    "AI Agents & Prompt Engineering — Built and deployed a live AI agent handling lead qualification via FB Messenger using OpenRouter and n8n",
+    "CRM & Pipeline Automation — Implemented lead capture and follow-up systems using HighLevel (GHL), HubSpot, and Airtable for client management",
+    "API & Webhook Integrations — Connecting REST APIs, parsing JSON responses, and wiring webhooks between SaaS platforms across multiple live workflows",
+    "No-Code Development — Using Lovable and v0.app to prototype and deploy functional web interfaces without a traditional dev background",
   ],
 };
 
@@ -122,7 +122,7 @@ const ExperienceSection = () => {
         </div>
 
         {/* Currently Learning */}
-        <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mb-6 mt-12">// Currently Learning</h3>
+        <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mb-6 mt-12">// Active Development Focus</h3>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
