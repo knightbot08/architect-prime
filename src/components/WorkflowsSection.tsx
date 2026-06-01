@@ -98,6 +98,16 @@ export const workflows: WorkflowItem[] = [
     loomUrl: "https://www.loom.com/share/8d1b8b62548744b78ab922215fd99023",
     badge: "Personal Project",
   },
+  {
+    id: "wf-05",
+    title: "Real Estate Lead Capture & Follow-Up Automation",
+    platform: "Zapier",
+    description: "Multi-step Zapier workflow for a real estate lead system connecting Facebook Lead Ads, HubSpot, OpenAI, Twilio, and Gmail.",
+    icon: Zap,
+    thumbnail: realEstateLeadCaptureThumb,
+    gif: "https://cdn.loom.com/sessions/thumbnails/f9e580fe3ff74a13b692f902945dd18c-c4387eed7885ca0c-full-play.gif",
+    loomUrl: "https://www.loom.com/share/f9e580fe3ff74a13b692f902945dd18c",
+  },
 ];
 
 const platformStyles: Record<Platform, string> = {
