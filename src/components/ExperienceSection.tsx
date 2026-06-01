@@ -106,9 +106,14 @@ const ExperienceSection = () => {
               className="p-6 border border-border rounded-md bg-background border-l-2 border-l-primary"
             >
               <div className="flex items-start justify-between flex-wrap gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-primary" />
-                  <h4 className="font-heading font-semibold text-foreground">{role.title}</h4>
+                <div className="flex items-start gap-2">
+                  <Briefcase className="w-4 h-4 text-primary mt-1" />
+                  <div>
+                    <h4 className="font-heading font-semibold text-foreground">{role.title}</h4>
+                    {role.label && (
+                      <p className="text-xs text-muted-foreground mt-0.5">{role.label}</p>
+                    )}
+                  </div>
                 </div>
                 <span className="text-xs font-mono text-muted-foreground">{role.period}</span>
               </div>
