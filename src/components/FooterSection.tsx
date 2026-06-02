@@ -48,7 +48,7 @@ const FooterSection = () => {
               <Mail className="w-4 h-4 text-primary shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors break-all">alamidakarl@gmail.com</span>
             </a>
-            <a href="https://wa.me/639215415206" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-glow-green/50 transition-all group">
+            <a href="https://wa.me/639559977089" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-glow-green/50 transition-all group">
               <MessageCircle className="w-4 h-4 text-glow-green shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors">💬 Message on WhatsApp</span>
             </a>
