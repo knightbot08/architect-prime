@@ -1,4 +1,4 @@
-import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send } from "lucide-react";
+import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
