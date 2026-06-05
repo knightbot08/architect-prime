@@ -176,11 +176,11 @@ const FooterSection = () => {
 
       {calOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-2 md:p-4"
           onClick={() => setCalOpen(false)}
         >
           <div
-            className="relative w-full max-w-[720px] min-h-[600px] bg-card border border-border rounded-xl shadow-2xl overflow-hidden"
+            className="relative w-[95vw] md:w-full md:min-w-[900px] max-w-[1000px] max-h-[95vh] min-h-[600px] bg-card border border-border rounded-xl shadow-2xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -191,7 +191,7 @@ const FooterSection = () => {
             >
               <X className="w-4 h-4" />
             </button>
-            <div id="cal-modal-inline" className="w-full min-h-[580px]" />
+            <div id="cal-modal-inline" style={{ width: "100%", minHeight: "650px" }} />
           </div>
         </div>
       )}
