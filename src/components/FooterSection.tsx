@@ -99,10 +99,14 @@ const FooterSection = () => {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-            <a href="https://cal.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group">
+            <button
+              type="button"
+              onClick={() => setCalOpen(true)}
+              className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group text-left w-full"
+            >
               <Calendar className="w-4 h-4 text-primary shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors break-all">📅 Book a call on Cal.com</span>
-            </a>
+            </button>
             <div className="flex items-center gap-3 p-4 border border-border rounded-md bg-card">
               <MapPin className="w-4 h-4 text-glow-blue shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground">Solano, Philippines</span>
