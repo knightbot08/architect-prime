@@ -1,7 +1,13 @@
-import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar } from "lucide-react";
-import { useState } from "react";
+import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+
+declare global {
+  interface Window {
+    Cal?: any;
+  }
+}
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
