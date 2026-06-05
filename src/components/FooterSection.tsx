@@ -173,6 +173,28 @@ const FooterSection = () => {
           </div>
         </div>
       </div>
+
+      {calOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setCalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-[720px] min-h-[600px] bg-card border border-border rounded-xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setCalOpen(false)}
+              aria-label="Close"
+              className="absolute top-3 right-3 z-10 inline-flex items-center justify-center w-9 h-9 rounded-md bg-background/80 border border-border text-foreground hover:bg-background transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            <div id="cal-modal-inline" className="w-full min-h-[580px]" />
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
