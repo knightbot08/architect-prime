@@ -1,7 +1,13 @@
-import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar } from "lucide-react";
-import { useState } from "react";
+import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+
+declare global {
+  interface Window {
+    Cal?: any;
+  }
+}
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -13,6 +19,55 @@ const FooterSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [calOpen, setCalOpen] = useState(false);
+  const calInitialized = useRef(false);
+
+  useEffect(() => {
+    if (!calOpen) return;
+
+    const initCal = () => {
+      if (!window.Cal) return;
+      if (!calInitialized.current) {
+        window.Cal("init", { origin: "https://cal.com" });
+        calInitialized.current = true;
+      }
+      window.Cal("inline", {
+        elementOrSelector: "#cal-modal-inline",
+        calLink: "karl-alamida-yr8o5v/discovery-call",
+        config: { theme: "dark" },
+      });
+    };
+
+    if (window.Cal) {
+      initCal();
+    } else {
+      const existing = document.querySelector<HTMLScriptElement>('script[data-cal-embed]');
+      if (existing) {
+        existing.addEventListener("load", initCal, { once: true });
+      } else {
+        // Inline the official Cal.com embed loader (vanilla JS snippet)
+        const script = document.createElement("script");
+        script.dataset.calEmbed = "true";
+        script.text = `(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");`;
+        document.head.appendChild(script);
+        initCal();
+      }
+    }
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setCalOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      const el = document.getElementById("cal-modal-inline");
+      if (el) el.innerHTML = "";
+    };
+  }, [calOpen]);
+
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,10 +99,14 @@ const FooterSection = () => {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-            <a href="https://cal.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group">
+            <button
+              type="button"
+              onClick={() => setCalOpen(true)}
+              className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group text-left w-full"
+            >
               <Calendar className="w-4 h-4 text-primary shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors break-all">📅 Book a call on Cal.com</span>
-            </a>
+            </button>
             <div className="flex items-center gap-3 p-4 border border-border rounded-md bg-card">
               <MapPin className="w-4 h-4 text-glow-blue shrink-0" />
               <span className="font-mono text-sm text-secondary-foreground">Solano, Philippines</span>
@@ -114,6 +173,28 @@ const FooterSection = () => {
           </div>
         </div>
       </div>
+
+      {calOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setCalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-[720px] min-h-[600px] bg-card border border-border rounded-xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setCalOpen(false)}
+              aria-label="Close"
+              className="absolute top-3 right-3 z-10 inline-flex items-center justify-center w-9 h-9 rounded-md bg-background/80 border border-border text-foreground hover:bg-background transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            <div id="cal-modal-inline" className="w-full min-h-[580px]" />
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
