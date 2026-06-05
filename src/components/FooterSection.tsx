@@ -1,4 +1,4 @@
-import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send } from "lucide-react";
+import { Terminal, Mail, MapPin, MessageCircle, Linkedin, Github, Send, Calendar } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -43,14 +43,10 @@ const FooterSection = () => {
             Let's build something <span className="text-primary text-glow-blue">together</span>.
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            <a href="mailto:alamidakarl@gmail.com" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group">
-              <Mail className="w-4 h-4 text-primary shrink-0" />
-              <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors break-all">alamidakarl@gmail.com</span>
-            </a>
-            <a href="https://wa.me/639559977089" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-glow-green/50 transition-all group">
-              <MessageCircle className="w-4 h-4 text-glow-green shrink-0" />
-              <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors">💬 Message on WhatsApp</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+            <a href="https://cal.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-md bg-card hover:border-primary/50 transition-all group">
+              <Calendar className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-mono text-sm text-secondary-foreground group-hover:text-foreground transition-colors break-all">📅 Book a call on Cal.com</span>
             </a>
             <div className="flex items-center gap-3 p-4 border border-border rounded-md bg-card">
               <MapPin className="w-4 h-4 text-glow-blue shrink-0" />
