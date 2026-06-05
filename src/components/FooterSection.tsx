@@ -19,6 +19,55 @@ const FooterSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [calOpen, setCalOpen] = useState(false);
+  const calInitialized = useRef(false);
+
+  useEffect(() => {
+    if (!calOpen) return;
+
+    const initCal = () => {
+      if (!window.Cal) return;
+      if (!calInitialized.current) {
+        window.Cal("init", { origin: "https://cal.com" });
+        calInitialized.current = true;
+      }
+      window.Cal("inline", {
+        elementOrSelector: "#cal-modal-inline",
+        calLink: "karl-alamida-yr8o5v/discovery-call",
+        config: { theme: "dark" },
+      });
+    };
+
+    if (window.Cal) {
+      initCal();
+    } else {
+      const existing = document.querySelector<HTMLScriptElement>('script[data-cal-embed]');
+      if (existing) {
+        existing.addEventListener("load", initCal, { once: true });
+      } else {
+        // Inline the official Cal.com embed loader (vanilla JS snippet)
+        const script = document.createElement("script");
+        script.dataset.calEmbed = "true";
+        script.text = `(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");`;
+        document.head.appendChild(script);
+        initCal();
+      }
+    }
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setCalOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      const el = document.getElementById("cal-modal-inline");
+      if (el) el.innerHTML = "";
+    };
+  }, [calOpen]);
+
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
