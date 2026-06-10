@@ -2,13 +2,11 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { workflows } from "./WorkflowsSection";
 
-const platformCount = new Set(workflows.map((w) => w.platform)).size;
-
 const stats = [
-  { value: workflows.length, suffix: "", label: "Workflows Built" },
-  { value: platformCount, suffix: "", label: "Automation Platforms" },
-  { value: 2, suffix: "+", label: "Months Hands-On" },
-  { value: 40, suffix: "+", label: "FB Accounts Managed" },
+  { value: workflows.length, suffix: "", label: "Workflows Shipped" },
+  { value: 15, suffix: "+", label: "Tools Integrated" },
+  { value: 90, suffix: "+", label: "Properties Covered" },
+  { value: 40, suffix: "+", label: "Hrs / Month Saved" },
 ];
 
 const Counter = ({ end, suffix }: { end: number; suffix: string }) => {

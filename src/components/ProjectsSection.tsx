@@ -41,9 +41,9 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="py-24 relative">
       <div className="container px-6">
-        <SectionHeader index="03" title="How I Work" />
+        <SectionHeader index="03" title="How I Think" />
         <p className="text-sm font-mono text-muted-foreground mt-4 max-w-2xl">
-          {"// the approach, background, and mindset behind every workflow I build"}
+          {"// the mindset and approach behind every workflow I build"}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           {cards.map((card, i) => (

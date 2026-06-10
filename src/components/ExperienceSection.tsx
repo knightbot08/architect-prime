@@ -1,15 +1,6 @@
 import { motion } from "framer-motion";
-import { Briefcase, Sparkles } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import { SectionHeader } from "./SkillsSection";
-
-const automationHighlights = [
-  { name: "n8n", metric: "Shipped", detail: "Multi-step workflows in production: AI agents, invoice generation, lead qualification, location-based property matching, and SMS reminders." },
-  { name: "Make.com", metric: "Practiced", detail: "Branching scenarios with routers, aggregators and error handlers for resilient automations." },
-  { name: "Zapier", metric: "Practiced", detail: "Lightweight automations connecting CRMs, forms, email and AI classifiers." },
-  { name: "AI Agents", metric: "Shipped", detail: "Conversational AI agent for a Facebook Rentals page that qualifies leads and answers FAQs." },
-  { name: "HighLevel (GHL)", metric: "Learning", detail: "Funnels, pipelines and CRM automations for client management and follow-up." },
-  { name: "APIs & Webhooks", metric: "Comfortable", detail: "Connecting REST APIs, parsing JSON, and wiring webhooks between SaaS tools." },
-];
 
 const roles = [
   {
@@ -67,34 +58,8 @@ const ExperienceSection = () => {
       <div className="container px-6">
         <SectionHeader index="05" title="Impact & Experience" />
 
-        {/* Automation Highlights — featured first */}
-        <div className="mt-12 mb-16">
-          <h3 className="font-mono text-sm text-glow-green uppercase tracking-wider mb-6">// Automation Toolkit & Highlights</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {automationHighlights.map((ad, i) => (
-              <motion.div
-                key={ad.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="p-4 border border-border rounded-md bg-background hover:border-glow-green/50 transition-all"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-heading font-semibold text-foreground">{ad.name}</span>
-                  <span className="flex items-center gap-1 text-xs font-mono text-glow-green">
-                    <Sparkles className="w-3 h-3" />
-                    {ad.metric}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">{ad.detail}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
         {/* Roles */}
-        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6">// Work Experience</h3>
+        <h3 className="font-mono text-sm text-primary uppercase tracking-wider mb-6 mt-12">// Work Experience</h3>
         <div className="space-y-6">
           {roles.map((role, i) => (
             <motion.div
