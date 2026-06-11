@@ -39,22 +39,16 @@ interface WorkflowItem {
   platform: Platform;
   description: string;
   icon: typeof Workflow;
-  thumbnail: string | null; // e.g. "/workflows/workflow-01.png" OR a Loom thumbnail .gif URL
-  gif: string | null;       // e.g. "/workflows/workflow-01.gif" OR same Loom thumbnail .gif URL
-  loomUrl?: string;         // Optional: Loom share link — card becomes clickable to open the recording
-  image?: string;           // Optional: static image — clicking opens a lightbox to enlarge it
-  badge?: string;           // Optional: small label shown on the card (e.g. "Personal Project")
+  thumbnail: string | null;
+  gif: string | null;
+  loomUrl?: string;
+  image?: string;
+  badge?: string;
+  problem?: string;
+  solution?: string;
+  stack?: string[];
+  result?: string;
 }
-
-/**
- * LOOM EMBED TIP
- * --------------
- * When pasting a Loom thumbnail like:
- *   <img src="https://cdn.loom.com/sessions/thumbnails/<id>-<hash>-full-play.gif#t=0.1">
- * the same URL acts as both the static-looking thumbnail AND the animated GIF
- * (Loom serves an animated .gif). So set BOTH `thumbnail` and `gif` to that URL
- * and add `loomUrl` so clicking the card opens the recording.
- */
 
 export const workflows: WorkflowItem[] = [
   {
@@ -116,9 +110,122 @@ const platformStyles: Record<Platform, string> = {
   n8n:    "text-glow-green border-glow-green/40",
 };
 
+const WorkflowModal = ({ workflow, onClose }: { workflow: WorkflowItem; onClose: () => void }) => {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  const embedSrc = workflow.loomUrl
+    ? workflow.loomUrl.replace("https://www.loom.com/share/", "https://www.loom.com/embed/") +
+      "?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+    : null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 220, damping: 24 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative max-w-[720px] w-full bg-card border border-border rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-3 right-3 z-10 p-2 rounded-full border border-border bg-card/80 hover:bg-card text-foreground transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="relative w-full aspect-video">
+          {embedSrc ? (
+            <iframe
+              src={embedSrc}
+              className="absolute inset-0 w-full h-full"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; fullscreen"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-muted/30 font-mono text-xs text-muted-foreground">
+              No recording available
+            </div>
+          )}
+        </div>
+
+        <div className="p-6">
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-heading font-semibold text-lg text-foreground">{workflow.title}</h3>
+            <div
+              className={`shrink-0 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
+            >
+              {workflow.platform}
+            </div>
+          </div>
+
+          <div className="my-4 h-px bg-border" />
+
+          {workflow.problem && (
+            <div className="mb-4">
+              <span className="font-mono text-xs text-glow-green uppercase tracking-wider">Problem</span>
+              <p className="mt-1 text-sm text-secondary-foreground leading-relaxed">{workflow.problem}</p>
+            </div>
+          )}
+
+          {workflow.solution && (
+            <div className="mb-4">
+              <span className="font-mono text-xs text-glow-green uppercase tracking-wider">Solution</span>
+              <p className="mt-1 text-sm text-secondary-foreground leading-relaxed">{workflow.solution}</p>
+            </div>
+          )}
+
+          {workflow.stack && workflow.stack.length > 0 && (
+            <div className="mb-4">
+              <span className="font-mono text-xs text-glow-green uppercase tracking-wider">Stack</span>
+              <div className="mt-1 flex flex-wrap gap-2">
+                {workflow.stack.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs font-mono text-glow-green border border-glow-green/30 px-2 py-0.5 rounded-sm"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {workflow.result && (
+            <div className="mb-4">
+              <span className="font-mono text-xs text-glow-green uppercase tracking-wider">Result</span>
+              <p className="mt-1 text-sm text-secondary-foreground leading-relaxed">{workflow.result}</p>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: number }) => {
   const [hovered, setHovered] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const Icon = workflow.icon;
   const hasMedia = workflow.thumbnail && workflow.gif;
   const isImage = !!workflow.image;
@@ -144,114 +251,90 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
       onMouseLeave={() => setHovered(false)}
       className="group border border-border rounded-md bg-card overflow-hidden hover:border-glow-blue transition-all"
     >
-      {(() => {
-        const MediaWrapper: any = workflow.loomUrl ? "a" : isImage ? "button" : "div";
-        const showPlayOverlay = hasMedia && !isImage && !hovered;
-        const handleMediaClick = (e: React.MouseEvent) => {
-          // On touch devices (no hover), first tap previews the GIF; second tap follows the link / opens lightbox.
-          const isTouch = typeof window !== "undefined" && window.matchMedia?.("(hover: none)").matches;
-          if (isTouch && hasMedia && !hovered) {
-            e.preventDefault();
-            setHovered(true);
-            return;
-          }
+      <div
+        className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block text-left"
+        onClick={() => {
           if (isImage) setLightboxOpen(true);
-        };
-        const wrapperProps = workflow.loomUrl
-          ? { href: workflow.loomUrl, target: "_blank", rel: "noopener noreferrer", onClick: handleMediaClick }
-          : isImage
-          ? { type: "button", onClick: handleMediaClick, "aria-label": `Enlarge ${workflow.title}` }
-          : {};
-        return (
-          <MediaWrapper
-            {...wrapperProps}
-            className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border block cursor-pointer text-left"
-          >
-            {hasMedia ? (
-              <>
-                {/* Static thumbnail (default) */}
-                <img
-                  src={workflow.thumbnail as string}
-                  alt={`${workflow.title} workflow preview`}
-                  loading="lazy"
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
-                    isImage ? "object-contain bg-background group-hover:scale-105" : "object-cover"
-                  } ${hovered ? "opacity-0" : "opacity-100"}`}
-                />
-                {/* Animated GIF (revealed on hover/tap) */}
-                <img
-                  src={workflow.gif as string}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
-                    isImage ? "object-contain bg-background" : "object-cover"
-                  } ${hovered ? "opacity-100" : "opacity-0"}`}
-                />
-                {/* YouTube-style play button overlay */}
-                {showPlayOverlay && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-background/60 backdrop-blur-sm border border-foreground/20 shadow-lg transition-transform duration-200 group-hover:scale-110">
-                      <Play className="w-6 h-6 text-foreground fill-foreground translate-x-0.5" />
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              // No recording yet — styled terminal placeholder
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
-                <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
-                <div className="relative z-10 flex flex-col items-center gap-2">
-                  <Icon className={`w-8 h-8 text-primary/60 transition-transform duration-500 ${hovered ? "scale-110" : ""}`} />
-                  <span className="font-mono text-xs text-glow-green/80 px-3 py-1 border border-glow-green/30 rounded-sm bg-background/50">
-                    [ Recording coming soon ]
-                  </span>
-                </div>
-                <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
-                  {workflow.id}
-                </span>
+        }}
+      >
+        {hasMedia ? (
+          <>
+            <img
+              src={workflow.thumbnail as string}
+              alt={`${workflow.title} workflow preview`}
+              loading="lazy"
+              className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
+                isImage ? "object-contain bg-background group-hover:scale-105" : "object-cover"
+              } ${hovered ? "opacity-0" : "opacity-100"}`}
+            />
+            <img
+              src={workflow.gif as string}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${
+                isImage ? "object-contain bg-background" : "object-cover"
+              } ${hovered ? "opacity-100" : "opacity-0"}`}
+            />
+            {!isImage && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setModalOpen(true);
+                  }}
+                  aria-label={`Play ${workflow.title}`}
+                  className="flex items-center justify-center w-14 h-14 rounded-full bg-background/60 backdrop-blur-sm border border-foreground/20 shadow-lg transition-transform duration-200 group-hover:scale-110"
+                >
+                  <Play className="w-6 h-6 text-foreground fill-foreground translate-x-0.5" />
+                </button>
               </div>
             )}
-            {/* Platform tag */}
-            <div
-              className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
-            >
-              {workflow.platform}
-            </div>
-
-            {/* Loom badge */}
-            {workflow.loomUrl && (
-              <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
-                ↗ loom
-              </div>
-            )}
-
-            {/* Image badge */}
-            {isImage && (
-              <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
-                ⤢ enlarge
-              </div>
-            )}
-
-            {/* Recording coming soon badge for screenshot-based Zapier cards */}
-            {isImage && (
-              <span className="absolute bottom-2 right-2 font-mono text-[10px] text-glow-green/80 px-2 py-0.5 border border-glow-green/30 rounded-sm bg-background/70 backdrop-blur-sm">
+          </>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-secondary/40 to-card">
+            <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(hsl(var(--border))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border))_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="relative z-10 flex flex-col items-center gap-2">
+              <Icon className={`w-8 h-8 text-primary/60 transition-transform duration-500 ${hovered ? "scale-110" : ""}`} />
+              <span className="font-mono text-xs text-glow-green/80 px-3 py-1 border border-glow-green/30 rounded-sm bg-background/50">
                 [ Recording coming soon ]
               </span>
-            )}
-
-            <div
-              className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
-                hovered ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {isImage ? "⤢ click to enlarge" : "▶ playing"}
             </div>
-          </MediaWrapper>
-        );
-      })()}
+            <span className="absolute bottom-2 right-2 text-[10px] font-mono text-muted-foreground/60">
+              {workflow.id}
+            </span>
+          </div>
+        )}
 
-      {/* Meta */}
+        <div
+          className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm border ${platformStyles[workflow.platform]}`}
+        >
+          {workflow.platform}
+        </div>
+
+        {isImage && (
+          <div className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border">
+            ⤢ enlarge
+          </div>
+        )}
+
+        {isImage && (
+          <span className="absolute bottom-2 right-2 font-mono text-[10px] text-glow-green/80 px-2 py-0.5 border border-glow-green/30 rounded-sm bg-background/70 backdrop-blur-sm">
+            [ Recording coming soon ]
+          </span>
+        )}
+
+        <div
+          className={`absolute bottom-2 left-2 px-2 py-0.5 text-[10px] font-mono rounded-sm bg-background/80 backdrop-blur-sm text-muted-foreground border border-border transition-opacity ${
+            hovered ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {isImage ? "⤢ click to enlarge" : "▶ playing"}
+        </div>
+      </div>
+
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-heading font-semibold text-base text-foreground">
@@ -268,7 +351,6 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
         </p>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightboxOpen && isImage && (
           <motion.div
@@ -301,6 +383,12 @@ const WorkflowCard = ({ workflow, index }: { workflow: WorkflowItem; index: numb
               className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl border border-border cursor-default"
             />
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {modalOpen && (
+          <WorkflowModal workflow={workflow} onClose={() => setModalOpen(false)} />
         )}
       </AnimatePresence>
     </motion.div>
