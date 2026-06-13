@@ -195,7 +195,7 @@ const WorkflowModal = ({ workflow, onClose }: { workflow: WorkflowItem; onClose:
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ type: "spring", stiffness: 220, damping: 24 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-[720px] w-full bg-card border border-border rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]"
+        className="relative max-w-[720px] w-full bg-card border border-border rounded-xl shadow-2xl flex flex-col max-h-[90vh]"
       >
         <button
           type="button"
@@ -206,7 +206,7 @@ const WorkflowModal = ({ workflow, onClose }: { workflow: WorkflowItem; onClose:
           <X className="w-5 h-5" />
         </button>
 
-        <div className="relative w-full aspect-video">
+        <div className="relative w-full aspect-video shrink-0">
           {embedSrc ? (
             <iframe
               src={embedSrc}
@@ -222,7 +222,7 @@ const WorkflowModal = ({ workflow, onClose }: { workflow: WorkflowItem; onClose:
           )}
         </div>
 
-        <div className="p-6">
+        <div className="overflow-y-auto max-h-[40vh] p-6">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-heading font-semibold text-lg text-foreground">{workflow.title}</h3>
             <div
